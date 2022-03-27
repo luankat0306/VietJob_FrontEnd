@@ -1,0 +1,21 @@
+.swiper {
+  padding: 4px;
+}
+.swiper-container {
+  position: relative;
+}
+.button-next {
+  position: absolute !important;
+  right: -30px;
+  top: 50%;
+  z-index: 2;
+  transform: translateY(-50%);
+}
+
+.button-prev {
+  position: absolute !important;
+  left: -30px;
+  top: 50%;
+  z-index: 2;
+  transform: translateY(-50%);
+}
