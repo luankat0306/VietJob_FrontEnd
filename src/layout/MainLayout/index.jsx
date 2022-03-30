@@ -44,7 +44,7 @@ export const MainLayout = () => {
 const Banner = () => {
   const mockCategories = [
     {
-      name: 'Tài chính / Ngân hàng',
+      name: 'Tài chính / Ngân hàng a',
       countJobs: 56231
     },
     {
