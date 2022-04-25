@@ -1,5 +1,7 @@
 import { HomeLayout, MainLayout } from '@/layouts';
+import { ProfileLayout } from '@/layouts/ProfileLayout';
 import { ChiTietViecLamPage, Home } from '@/pages';
+import ThongTinCaNhanPage from '@/pages/thong-tin-ca-nhan';
 import TimKiemViecLamPage from '@/pages/viec-lam/tim-kiem';
 
 const routes = [
@@ -15,6 +17,20 @@ const routes = [
       {
         path: 'tim-kiem',
         element: <TimKiemViecLamPage />
+      },
+      {
+        path: ':slug',
+        element: <ChiTietViecLamPage />
+      }
+    ]
+  },
+  {
+    path: 'thong-tin-ca-nhan',
+    element: <ProfileLayout />,
+    children: [
+      {
+        index: true,
+        element: <ThongTinCaNhanPage />
       },
       {
         path: ':slug',

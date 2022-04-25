@@ -1,6 +1,4 @@
-import LabelWithIcon from '@/components/Base/LabelWithIcon';
-import { CardJob } from '@/components/CardJob';
-import { grey, primary } from '@/theme/themeColors';
+import React from 'react';
 import {
   AssignmentIndRounded,
   EqualizerRounded,
@@ -11,6 +9,8 @@ import {
   LocationCityRounded,
   MoreTimeRounded
 } from '@mui/icons-material';
+import { grey, primary } from '@/theme/themeColors';
+
 import {
   Avatar,
   Button,
@@ -25,8 +25,9 @@ import {
   Stack,
   Typography
 } from '@mui/material';
+import LabelWithIcon from '@/components/Base/LabelWithIcon';
 
-const ChiTietViecLamPage = () => {
+const ThongTinCaNhanPage = () => {
   const info = [
     {
       icon: MoreTimeRounded,
@@ -65,30 +66,56 @@ const ChiTietViecLamPage = () => {
     }
   ];
 
-  const mockJobs = [
-    {
-      name: 'Tài chính / Ngân hàng',
-      enterpriseName: 'Sacombank'
-    },
-    {
-      name: 'IT phần mềm',
-      enterpriseName: 'Fpt Software'
-    },
-    {
-      name: 'Kinh doanh / bán hàng',
-      enterpriseName: 'Vinamilk'
-    },
-    {
-      name: 'Bất động sản',
-      enterpriseName: 'VinGroup'
-    }
-  ];
   return (
     <Container fixed sx={{ mt: 4, mb: 4 }}>
       <Grid container spacing={4}>
+        <Grid item xs={12} md={4} lg={4}>
+          <Card variant="outlined" sx={{ bgcolor: primary[50] }}>
+            <CardContent>
+              <Stack direction="row" spacing={2}>
+                <Avatar sx={{ mt: 1, bgcolor: '#fff', width: 56, height: 56 }} variant="rounded">
+                  N
+                </Avatar>
+                <Stack>
+                  <Typography variant="h6" fontWeight={500}>
+                    Võ Trí Luân
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary">
+                    Software Engineer
+                  </Typography>
+                </Stack>
+              </Stack>
+              <Divider sx={{ my: 2, borderColor: primary[100] }} />
+              {info.map(({ icon: Icon, title, content }) => {
+                return (
+                  <>
+                    <Stack direction="row" justifyContent="space-between" alignItems="center">
+                      <LabelWithIcon>
+                        <Icon color="primary" sx={{ mr: 1 }} />
+                        <Typography variant="body2" color="textPrimary">
+                          <strong>{title}</strong>
+                        </Typography>
+                      </LabelWithIcon>
+
+                      <Typography variant="body2" color="GrayText">
+                        <strong>{content}</strong>
+                      </Typography>
+                    </Stack>
+                    <Divider sx={{ my: 2, borderColor: primary[100] }} />
+                  </>
+                );
+              })}
+              {/* <Box mt={4} display="flex" justifyContent="center"> */}
+              <Button fullWidth size="large" variant="contained" color="primary">
+                Liên hệ
+              </Button>
+              {/* </Box> */}
+            </CardContent>
+          </Card>
+        </Grid>
         <Grid item xs={12} md={8} lg={8}>
-          <Typography component="div" variant="h3" fontWeight={700}>
-            Graduate Programme – IT Software Test Analyst Engineer
+          <Typography component="div" variant="h6" fontWeight={700}>
+            Giới thiệu bản thân
           </Typography>
           <Typography mt={2} component="div" variant="body2" color="textSecondary">
             Lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor
@@ -96,8 +123,9 @@ const ChiTietViecLamPage = () => {
             accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren no sea taki mata
             sanctus est Lorem ipsum dolor sit amet lorem ipsum dolor sit amet consetetur.
           </Typography>
+
           <Typography mt={2} component="div" variant="h6" fontWeight={700}>
-            Job Responsibilities:
+            Học vấn:
           </Typography>
           {/* <Typography mt={2} component="div" variant="body2" color="textSecondary"> */}
           <List disablePadding>
@@ -154,7 +182,7 @@ const ChiTietViecLamPage = () => {
           </List>
 
           <Typography mt={2} component="div" variant="h6" fontWeight={700}>
-            Education:
+            Kinh nghiệm:
           </Typography>
           {/* <Typography mt={2} component="div" variant="body2" color="textSecondary"> */}
           <List disablePadding>
@@ -209,62 +237,7 @@ const ChiTietViecLamPage = () => {
               aliquyam erat.
             </ListItem>
           </List>
-          <Typography mt={2} component="div" variant="h6" fontWeight={700}>
-            Experience:
-          </Typography>
-          {/* <Typography mt={2} component="div" variant="body2" color="textSecondary"> */}
-          <List disablePadding>
-            <ListItem disableGutters>
-              <ListItemIcon
-                sx={{
-                  '&.MuiListItemIcon-root': {
-                    minWidth: '32px'
-                  }
-                }}
-              >
-                <HorizontalRuleRounded color="primary" />
-              </ListItemIcon>
-              Lorem decore nullam te eum id evertitur reformidans sea id possit principes.
-            </ListItem>
-            <ListItem disableGutters>
-              <ListItemIcon
-                sx={{
-                  '&.MuiListItemIcon-root': {
-                    minWidth: '32px'
-                  }
-                }}
-              >
-                <HorizontalRuleRounded color="primary" />
-              </ListItemIcon>
-              Dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt.
-            </ListItem>
-            <ListItem disableGutters>
-              <ListItemIcon
-                sx={{
-                  '&.MuiListItemIcon-root': {
-                    minWidth: '32px'
-                  }
-                }}
-              >
-                <HorizontalRuleRounded color="primary" />
-              </ListItemIcon>
-              Consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore
-              magna aliquyam erat.
-            </ListItem>
-            <ListItem disableGutters>
-              <ListItemIcon
-                sx={{
-                  '&.MuiListItemIcon-root': {
-                    minWidth: '32px'
-                  }
-                }}
-              >
-                <HorizontalRuleRounded color="primary" />
-              </ListItemIcon>
-              Sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
-              aliquyam erat.
-            </ListItem>
-          </List>
+
           <Divider sx={{ mt: 2 }} />
           <Stack direction="row" spacing={2} alignItems="center">
             <Typography my={2} component="div" variant="h6" fontWeight={700}>
@@ -295,75 +268,12 @@ const ChiTietViecLamPage = () => {
           </Stack>
 
           <Divider />
-          <Typography
-            // sx={{ borderLeft: `4px solid ${primary.main}`, pl: 1 }}
-            mt={2}
-            component="div"
-            variant="h6"
-            fontWeight={700}
-          >
-            Việc làm liên quan:
-          </Typography>
-          <Card sx={{ mt: 2 }} variant="outlined">
-            <CardContent sx={{ backgroundColor: '#f3f6f9' }}>
-              <Grid container spacing={2}>
-                {mockJobs.map((job, index) => (
-                  <Grid key={index} item xs={12} md={6}>
-                    <CardJob item={job} />
-                  </Grid>
-                ))}
-              </Grid>
-            </CardContent>
-          </Card>
-          {/* </Typography> */}
-        </Grid>
-        <Grid item xs={12} md={4} lg={4}>
-          <Card variant="outlined" sx={{ bgcolor: primary[50] }}>
-            <CardContent>
-              <Stack direction="row" spacing={2}>
-                <Avatar sx={{ mt: 1, bgcolor: '#fff', width: 56, height: 56 }} variant="rounded">
-                  N
-                </Avatar>
-                <Stack>
-                  <Typography variant="h6" fontWeight={500}>
-                    Solit IT Solution
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary">
-                    Graduate Programme – IT Software Test Analyst Engineer
-                  </Typography>
-                </Stack>
-              </Stack>
-              <Divider sx={{ my: 2, borderColor: primary[100] }} />
-              {info.map(({ icon: Icon, title, content }) => {
-                return (
-                  <>
-                    <Stack direction="row" justifyContent="space-between" alignItems="center">
-                      <LabelWithIcon>
-                        <Icon color="primary" sx={{ mr: 1 }} />
-                        <Typography variant="body2" color="textPrimary">
-                          <strong>{title}</strong>
-                        </Typography>
-                      </LabelWithIcon>
 
-                      <Typography variant="body2" color="GrayText">
-                        <strong>{content}</strong>
-                      </Typography>
-                    </Stack>
-                    <Divider sx={{ my: 2, borderColor: primary[100] }} />
-                  </>
-                );
-              })}
-              {/* <Box mt={4} display="flex" justifyContent="center"> */}
-              <Button fullWidth size="large" variant="contained" color="primary">
-                Ứng tuyển
-              </Button>
-              {/* </Box> */}
-            </CardContent>
-          </Card>
+          {/* </Typography> */}
         </Grid>
       </Grid>
     </Container>
   );
 };
 
-export default ChiTietViecLamPage;
+export default ThongTinCaNhanPage;
