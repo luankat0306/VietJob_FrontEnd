@@ -1,5 +1,7 @@
 import { HomeLayout, MainLayout } from '@/layouts';
+import { ProfileLayout } from '@/layouts/ProfileLayout';
 import { ChiTietViecLamPage, Home } from '@/pages';
+import ThongTinCaNhanPage from '@/pages/thong-tin-ca-nhan';
 import DanhSachNhaTuyenDungPage from '@/pages/nha-tuyen-dung/danh-sach';
 import ChiTietNhaTuyenDungPage from '@/pages/nha-tuyen-dung/chi-tiet-nha-tuyen-dung';
 import TopCongTyPage from '@/pages/nha-tuyen-dung/top-cong-ty';
@@ -26,21 +28,35 @@ const routes = [
     ]
   },
   {
+    path: 'thong-tin-ca-nhan',
+    element: <ProfileLayout />,
+    children: [
+      {
+        index: true,
+        element: <ThongTinCaNhanPage />
+      },
+      {
+        path: ':slug',
+        element: <ChiTietViecLamPage />
+      }
+    ]
+  },
+  {
     path: 'nha-tuyen-dung',
     element: <MainLayout />,
     children: [
       {
         path: 'danh-sach',
-        element: <DanhSachNhaTuyenDungPage/>
+        element: <DanhSachNhaTuyenDungPage />
       },
       {
         path: 'top-cong-ty',
-        element: <TopCongTyPage/>
+        element: <TopCongTyPage />
       },
       {
         path: 'danh-sach/chi-tiet-nha-tuyen-dung',
-        element: <ChiTietNhaTuyenDungPage/>
-      },
+        element: <ChiTietNhaTuyenDungPage />
+      }
     ]
   }
 ];

@@ -38,7 +38,7 @@ const Header = (props) => {
             label="Hồ sơ & CV"
             listMenu={[
               { label: 'Quản lý CV', href: '/quan-ly-cv' },
-              { label: 'Thông tin hồ sơ', href: '/thong-tin-ho-so' }
+              { label: 'Thông tin cá nhân', href: '/thong-tin-ca-nhan' }
             ]}
           />
           <NavItem
