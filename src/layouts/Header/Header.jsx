@@ -43,10 +43,10 @@ const Header = (props) => {
           />
           <NavItem
             id="cong-ty"
-            label="Công ty"
+            label="Nhà tuyển dụng"
             listMenu={[
-              { label: 'Danh sách công ty', href: '/danh-sach-cong-ty' },
-              { label: 'Top công ty', href: '/top-cong-ty' }
+              { label: 'Danh sách', href: '/nha-tuyen-dung/danh-sach' },
+              { label: 'Top nhà tuyển dụng', href: '/nha-tuyen-dung/top-cong-ty' }
             ]}
           />
         </Box>
