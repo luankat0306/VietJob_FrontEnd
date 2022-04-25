@@ -140,7 +140,7 @@ function Home() {
           </Box>
         </Container>
 
-        <Box sx={{ width: '100%', backgroundColor: '#f3f6f9', p: 6 }}>
+        <Box sx={{ width: '100%', backgroundColor: '#f3f6f9', p: 5 }}>
           <Container fixed>
             <Box>
               <Typography sx={{ textAlign: 'center', mb: 6 }} variant="h3" fontWeight={700}>

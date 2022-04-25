@@ -2,6 +2,9 @@ import { HomeLayout, MainLayout } from '@/layouts';
 import { ProfileLayout } from '@/layouts/ProfileLayout';
 import { ChiTietViecLamPage, Home } from '@/pages';
 import ThongTinCaNhanPage from '@/pages/thong-tin-ca-nhan';
+import DanhSachNhaTuyenDungPage from '@/pages/nha-tuyen-dung/danh-sach';
+import ChiTietNhaTuyenDungPage from '@/pages/nha-tuyen-dung/chi-tiet-nha-tuyen-dung';
+import TopCongTyPage from '@/pages/nha-tuyen-dung/top-cong-ty';
 import TimKiemViecLamPage from '@/pages/viec-lam/tim-kiem';
 
 const routes = [
@@ -35,6 +38,24 @@ const routes = [
       {
         path: ':slug',
         element: <ChiTietViecLamPage />
+      }
+    ]
+  },
+  {
+    path: 'nha-tuyen-dung',
+    element: <MainLayout />,
+    children: [
+      {
+        path: 'danh-sach',
+        element: <DanhSachNhaTuyenDungPage />
+      },
+      {
+        path: 'top-cong-ty',
+        element: <TopCongTyPage />
+      },
+      {
+        path: 'danh-sach/chi-tiet-nha-tuyen-dung',
+        element: <ChiTietNhaTuyenDungPage />
       }
     ]
   }
