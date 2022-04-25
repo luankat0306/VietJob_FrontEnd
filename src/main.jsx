@@ -5,6 +5,7 @@ import App from './App';
 import './index.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css'; // You can also use <link> for styles
+import { BrowserRouter } from 'react-router-dom';
 // ..
 AOS.init({
   // Global settings:
@@ -29,7 +30,9 @@ AOS.init({
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );

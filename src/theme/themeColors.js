@@ -11,6 +11,7 @@ export const grey = {
 };
 
 export const primary = {
+  50: '#e8eaf6',
   100: '#C5CAE9',
   200: '#9FA8DA',
   300: '#7986CB',
@@ -24,17 +25,7 @@ export const primary = {
 };
 
 export const secondary = {
-  100: '#e8e8ee',
-  200: '#b9bacb',
-  300: '#8a8ca8',
-  400: '#5b5d85',
-  500: '#141850',
-  600: '#0F3460',
-  700: '#101340',
-  800: '#0e1138',
-  900: '#0c0e30',
-  main: '#0F3460',
-  dark: '#0c0e30'
+  main: '#3d5afe'
 };
 
 export const error = {

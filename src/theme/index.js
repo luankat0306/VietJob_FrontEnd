@@ -141,7 +141,7 @@ const bazarTheme = createTheme({
     MuiPaper: {
       styleOverrides: {
         root: {
-          borderRadius: '8px'
+          // borderRadius: '8px'
         }
       }
     },
