@@ -63,16 +63,13 @@ function TopCongTyPage(){
             ))}
           </MuiGrid>
           <Box fullWidth sx={{
-            pl:10,
-            pr:10,
+            mt:3,              
+            mb:3,
             alignItems:'center',
             display:'flex',
             justifyContent:'center'
             }}>
-            <Pagination count={5} shape="rounded" sx={{
-              mt:5,
-              mb:5,
-            }}/>
+            <Pagination count={5} shape="rounded"/>
           </Box>
         </Container>
       </Box>
