@@ -29,15 +29,15 @@ const Header = (props) => {
             label="Việc làm"
             listMenu={[
               { label: 'Tìm kiếm việc làm', href: '/viec-lam/tim-kiem' },
-              { label: 'Việc làm đã ứng tuyền', href: '/' },
-              { label: 'Việc làm đã lưu', href: '/' }
+              { label: 'Việc làm đã ứng tuyền', href: '/nguoi-tim-viec/viec-lam-da-ung-tuyen' },
+              { label: 'Việc làm đã lưu', href: '/nguoi-tim-viec/viec-lam-da-luu' }
             ]}
           />
           <NavItem
             id="ho-so"
             label="Hồ sơ & CV"
             listMenu={[
-              { label: 'Quản lý CV', href: '/quan-ly-cv' },
+              { label: 'Quản lý CV', href: '/nguoi-tim-viec/quan-ly-cv' },
               { label: 'Thông tin cá nhân', href: '/thong-tin-ca-nhan' }
             ]}
           />

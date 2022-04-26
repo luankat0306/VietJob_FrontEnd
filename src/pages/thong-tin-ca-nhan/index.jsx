@@ -1,16 +1,15 @@
-import React from 'react';
+import { grey, primary } from '@/theme/themeColors';
 import {
-  AssignmentIndRounded,
   EqualizerRounded,
   HorizontalRuleRounded,
-  InsertInvitationRounded,
   LayersRounded,
   LocalAtmRounded,
-  LocationCityRounded,
-  MoreTimeRounded
+  MailRounded,
+  PhoneRounded,
+  PlaceRounded
 } from '@mui/icons-material';
-import { grey, primary } from '@/theme/themeColors';
 
+import LabelWithIcon from '@/components/Base/LabelWithIcon';
 import {
   Avatar,
   Button,
@@ -25,23 +24,23 @@ import {
   Stack,
   Typography
 } from '@mui/material';
-import LabelWithIcon from '@/components/Base/LabelWithIcon';
+import ButtonEdit from './components/ButtonEdit';
 
 const ThongTinCaNhanPage = () => {
   const info = [
     {
-      icon: MoreTimeRounded,
-      title: 'Ngày đăng:',
+      icon: PhoneRounded,
+      title: 'Số điện thoại:',
       content: '12/12/2020'
     },
     {
-      icon: InsertInvitationRounded,
-      title: 'Ngày hết hạn:',
-      content: '18/12/2022'
+      icon: MailRounded,
+      title: 'Email:',
+      content: 'votriluan@gmail.com'
     },
     {
-      icon: LocationCityRounded,
-      title: 'Địa điểm:',
+      icon: PlaceRounded,
+      title: 'Địa chỉ:',
       content: 'Hồ Chí Minh'
     },
     {
@@ -58,11 +57,6 @@ const ThongTinCaNhanPage = () => {
       icon: LocalAtmRounded,
       title: 'Mức lương:',
       content: '10 - 15 triệu'
-    },
-    {
-      icon: AssignmentIndRounded,
-      title: 'Số lượng:',
-      content: '0/10'
     }
   ];
 
@@ -72,11 +66,15 @@ const ThongTinCaNhanPage = () => {
         <Grid item xs={12} md={4} lg={4}>
           <Card variant="outlined" sx={{ bgcolor: primary[50] }}>
             <CardContent>
-              <Stack direction="row" spacing={2}>
+              <Stack alignItems="start" direction="row" spacing={2}>
                 <Avatar sx={{ mt: 1, bgcolor: '#fff', width: 56, height: 56 }} variant="rounded">
                   N
                 </Avatar>
-                <Stack>
+                <Stack
+                  sx={{
+                    flexGrow: 1
+                  }}
+                >
                   <Typography variant="h6" fontWeight={500}>
                     Võ Trí Luân
                   </Typography>
@@ -84,6 +82,7 @@ const ThongTinCaNhanPage = () => {
                     Software Engineer
                   </Typography>
                 </Stack>
+                <ButtonEdit title="Thông tin cá nhân" />
               </Stack>
               <Divider sx={{ my: 2, borderColor: primary[100] }} />
               {info.map(({ icon: Icon, title, content }) => {
@@ -115,9 +114,9 @@ const ThongTinCaNhanPage = () => {
         </Grid>
         <Grid item xs={12} md={8} lg={8}>
           <Typography component="div" variant="h6" fontWeight={700}>
-            Giới thiệu bản thân
+            Giới thiệu bản thân <ButtonEdit title="Giới thiệu bản thân" />
           </Typography>
-          <Typography mt={2} component="div" variant="body2" color="textSecondary">
+          <Typography mt={1} component="div" variant="body2" color="textSecondary">
             Lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor
             invidunt ut labore et dolore magna aliquyam erat sed diam voluptua at vero eos et
             accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren no sea taki mata
@@ -125,7 +124,7 @@ const ThongTinCaNhanPage = () => {
           </Typography>
 
           <Typography mt={2} component="div" variant="h6" fontWeight={700}>
-            Học vấn:
+            Học vấn <ButtonEdit title="Học vấn" />
           </Typography>
           {/* <Typography mt={2} component="div" variant="body2" color="textSecondary"> */}
           <List disablePadding>
@@ -182,7 +181,7 @@ const ThongTinCaNhanPage = () => {
           </List>
 
           <Typography mt={2} component="div" variant="h6" fontWeight={700}>
-            Kinh nghiệm:
+            Kinh nghiệm <ButtonEdit title="Kinh nghiệm" />
           </Typography>
           {/* <Typography mt={2} component="div" variant="body2" color="textSecondary"> */}
           <List disablePadding>
@@ -238,10 +237,65 @@ const ThongTinCaNhanPage = () => {
             </ListItem>
           </List>
 
+          <Typography mt={2} component="div" variant="h6" fontWeight={700}>
+            Chứng chỉ <ButtonEdit title="Chứng chỉ" />
+          </Typography>
+          <List disablePadding>
+            <ListItem disableGutters>
+              <ListItemIcon
+                sx={{
+                  '&.MuiListItemIcon-root': {
+                    minWidth: '32px'
+                  }
+                }}
+              >
+                <HorizontalRuleRounded color="primary" />
+              </ListItemIcon>
+              Lorem decore nullam te eum id evertitur reformidans sea id possit principes.
+            </ListItem>
+            <ListItem disableGutters>
+              <ListItemIcon
+                sx={{
+                  '&.MuiListItemIcon-root': {
+                    minWidth: '32px'
+                  }
+                }}
+              >
+                <HorizontalRuleRounded color="primary" />
+              </ListItemIcon>
+              Dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt.
+            </ListItem>
+            <ListItem disableGutters>
+              <ListItemIcon
+                sx={{
+                  '&.MuiListItemIcon-root': {
+                    minWidth: '32px'
+                  }
+                }}
+              >
+                <HorizontalRuleRounded color="primary" />
+              </ListItemIcon>
+              Consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore
+              magna aliquyam erat.
+            </ListItem>
+            <ListItem disableGutters>
+              <ListItemIcon
+                sx={{
+                  '&.MuiListItemIcon-root': {
+                    minWidth: '32px'
+                  }
+                }}
+              >
+                <HorizontalRuleRounded color="primary" />
+              </ListItemIcon>
+              Sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
+              aliquyam erat.
+            </ListItem>
+          </List>
           <Divider sx={{ mt: 2 }} />
           <Stack direction="row" spacing={2} alignItems="center">
             <Typography my={2} component="div" variant="h6" fontWeight={700}>
-              Kỹ năng:
+              Kỹ năng <ButtonEdit title="Kỹ năng" />
             </Typography>
             <Card
               variant="outlined"
@@ -268,7 +322,6 @@ const ThongTinCaNhanPage = () => {
           </Stack>
 
           <Divider />
-
           {/* </Typography> */}
         </Grid>
       </Grid>
