@@ -10,7 +10,8 @@ Container,
 Typography,
 Grid as MuiGrid,
 Card,CardActionArea,CardMedia,CardContent,
-Pagination
+Pagination,
+Link
 } from '@mui/material';
 import EmployerSearchBar from '@/components/EmployerSearchBar/EmployerSearchBar';
 
@@ -30,6 +31,7 @@ function DanhSachNhaTuyenDungPage(){
             }} variant="h4" fontWeight={500}>
             Danh Sách Các Nhà Tuyển Dụng Nổi Bật
           </Typography>
+          <Link href='/nha-tuyen-dung/danh-sach/chi-tiet-nha-tuyen-dung' underline='none'>
           <MuiGrid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
             {Array.from(Array(6)).map((_, index) => (
               <MuiGrid item xs={2} sm={4} md={4} key={index}>
@@ -77,18 +79,15 @@ function DanhSachNhaTuyenDungPage(){
               </MuiGrid>
             ))}
           </MuiGrid>
+          </Link>
           <Box fullWidth sx={{
-            pl:10,
-            pr:10,
+             mt:3,              
+             mb:3,
             alignItems:'center',
             display:'flex',
             justifyContent:'center'
             }}>
-              
-            <Pagination count={5} shape="rounded" sx={{
-              mt:5,
-              mb:5,
-            }}/>
+            <Pagination count={5} shape="rounded"/>
           </Box>
         </Container>
       </Box>

@@ -66,8 +66,6 @@ function EmployerSearchBar(){
                       width:'50%',
                       display: 'block',
                       marginLeft: 'auto',
-                      
-                    
                     }}
                     src={employer}
                   />
