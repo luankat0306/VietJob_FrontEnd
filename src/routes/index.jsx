@@ -1,6 +1,6 @@
 import { HomeLayout, MainLayout } from '@/layouts';
 import { ProfileLayout } from '@/layouts/ProfileLayout';
-import { ChiTietViecLamPage, Home } from '@/pages';
+
 import ThongTinCaNhanPage from '@/pages/thong-tin-ca-nhan';
 import DanhSachNhaTuyenDungPage from '@/pages/nha-tuyen-dung/danh-sach';
 import ChiTietNhaTuyenDungPage from '@/pages/nha-tuyen-dung/chi-tiet-nha-tuyen-dung';
@@ -9,12 +9,25 @@ import TimKiemViecLamPage from '@/pages/viec-lam/tim-kiem';
 import ViecLamDaUngTuyenPage from '@/pages/nguoi-tim-ciec/viec-lam-da-ung-tuyen';
 import QuanLyCVPage from '@/pages/nguoi-tim-ciec/quan-ly-cv';
 import ViecLamDaLuuPage from '@/pages/nguoi-tim-ciec/viec-lam-da-luu';
+import DangNhapPage from '@/pages/dang-nhap';
+import Home from '@/pages/trang-chu';
+import ChiTietViecLamPage from '@/pages/viec-lam/[slug]';
 
 const routes = [
   {
     path: '/',
     element: <HomeLayout />,
-    children: [{ index: true, element: <Home /> }]
+    children: [
+      { index: true, element: <Home /> },
+      {
+        path: 'dang-nhap',
+        element: <DangNhapPage />
+      },
+      {
+        path: 'dang-ky',
+        element: <DangNhapPage />
+      }
+    ]
   },
   {
     path: 'viec-lam',

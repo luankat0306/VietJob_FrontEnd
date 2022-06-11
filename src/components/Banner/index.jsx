@@ -1,4 +1,6 @@
 import { Box, Button, Card, Grid as MuiGrid, Stack, TextField, Typography } from '@mui/material';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import 'swiper/css';
 import 'swiper/css/grid';
 import 'swiper/css/navigation';
@@ -6,8 +8,25 @@ import 'swiper/css/pagination';
 import banner1 from '../../assets/banner-1.png';
 import banner from '../../assets/banner.svg';
 import { grey } from '../../theme/themeColors';
-
+import AutocompleteField from '../Field/AutocompleteField';
+import InputField from '../Field/InputField';
+import queryString from 'query-string';
+import { removeEmpty } from '@/utils/format';
+import { useProvinces } from '@/hooks/province';
+import { useCareers } from '@/hooks/career';
 const Banner = () => {
+  const { data: menuProvince } = useProvinces({});
+  const { data: menuCareer } = useCareers({});
+  const { control, handleSubmit } = useForm();
+  const navigate = useNavigate();
+
+  const onSubmit = (data) => {
+    navigate({
+      pathname: '/viec-lam/tim-kiem',
+      search: '?' + queryString.stringify(removeEmpty(data))
+    });
+  };
+
   return (
     <Box
       onMouseMove={(e) => {
@@ -37,26 +56,35 @@ const Banner = () => {
             <Box mt={4} />
 
             <Card sx={{ p: 1 }}>
-              <Stack direction="row" spacing={2} alignItems="center">
-                <TextField
-                  sx={{ '&.MuiTextField-root': { backgroundColor: grey[200] } }}
-                  fullWidth
+              <Stack direction="row" spacing={1} alignItems="stretch" flexGrow={1}>
+                <InputField
                   label="Tên công việc, vị trí muốn ứng tuyển"
-                />
-                <TextField
+                  name="title"
+                  control={control}
                   sx={{ '&.MuiTextField-root': { backgroundColor: grey[200] } }}
-                  select
-                  fullWidth
-                  label="Thành phố"
                 />
-                <TextField
+                <AutocompleteField
+                  label="Tỉnh/Thành phố"
+                  name="province"
+                  control={control}
+                  options={menuProvince?.data?.map((item) => item.name)}
                   sx={{ '&.MuiTextField-root': { backgroundColor: grey[200] } }}
-                  select
-                  fullWidth
+                />
+                <AutocompleteField
                   label="Ngành nghề"
+                  name="career"
+                  control={control}
+                  options={menuCareer?.data?.map((item) => item.name)}
+                  sx={{ '&.MuiTextField-root': { backgroundColor: grey[200] } }}
                 />
+
                 <Box>
-                  <Button sx={{ width: '96px' }} variant="contained" color="primary">
+                  <Button
+                    sx={{ width: '96px' }}
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSubmit(onSubmit)}
+                  >
                     Tìm Kiếm
                   </Button>
                 </Box>

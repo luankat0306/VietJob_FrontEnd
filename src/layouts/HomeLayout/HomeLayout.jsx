@@ -1,10 +1,13 @@
 import { KeyboardArrowUp } from '@mui/icons-material';
 import { Box, Fab, useScrollTrigger, Zoom } from '@mui/material';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import 'swiper/css';
 import 'swiper/css/grid';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { selectIsLogin } from '../../redux/authSlice';
 import { Header } from '../Header';
 
 function ScrollTop(props) {
@@ -43,9 +46,13 @@ function ScrollTop(props) {
 }
 
 export const HomeLayout = ({ props }) => {
+  const isLogin = useSelector(selectIsLogin);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <Box sx={{ backgroundColor: '#fff' }}>
-      <Header />
+      <Header isLogin={isLogin} />
       <Outlet />
       <ScrollTop {...props}>
         <Fab color="primary" size="small" aria-label="scroll back to top">

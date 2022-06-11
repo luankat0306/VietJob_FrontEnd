@@ -1,4 +1,4 @@
-import { AccessTime, BusinessCenterRounded, Place } from '@mui/icons-material';
+import { AccessTime, BusinessCenterRounded } from '@mui/icons-material';
 import {
   Avatar,
   Box,
@@ -8,20 +8,22 @@ import {
   ListItemAvatar,
   ListItemText,
   Stack,
+  Tooltip,
   Typography
 } from '@mui/material';
+import * as moment from 'moment';
+import 'moment/locale/vi';
 import { useNavigate } from 'react-router-dom';
 import 'swiper/css';
 import 'swiper/css/grid';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { primary } from '../../theme/themeColors';
-
 const CardJob = ({ item }) => {
   const navigate = useNavigate();
   return (
     <Card
-      onClick={() => navigate('/viec-lam/viec-lam-01')}
+      onClick={() => navigate('/viec-lam/' + item.id)}
       sx={{
         border: `1px solid transparent`,
         transition: 'ease-in-out 0.3s',
@@ -41,35 +43,38 @@ const CardJob = ({ item }) => {
             </ListItemAvatar>
             <ListItemText
               primary={
-                <Typography
-                  data-content={item.name}
-                  sx={{
-                    display: 'inline-block',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    color: 'primary.main',
-                    '::before': {
-                      content: 'attr(data-content)',
-                      color: 'primary.900',
-                      position: 'absolute',
-                      top: '0',
-                      left: '0',
-                      width: '0',
-                      transition: 'width 300ms ease-in-out',
-                      whiteSpace: 'nowrap',
-                      overflow: 'hidden'
-                    },
-                    ':hover': {
-                      '::before': {
-                        width: '100%'
-                      }
-                    }
-                  }}
-                  fontWeight={600}
-                  variant="h6"
-                >
-                  {item.name}
-                </Typography>
+                <Tooltip title={item.name}>
+                  <Typography
+                    data-content={item.name}
+                    // sx={{
+                    //   display: 'inline-block',
+                    //   position: 'relative',
+                    //   overflow: 'hidden',
+                    //   color: 'primary.main',
+                    //   '::before': {
+                    //     content: 'attr(data-content)',
+                    //     color: 'primary.900',
+                    //     position: 'absolute',
+                    //     top: '0',
+                    //     left: '0',
+                    //     width: '0',
+                    //     transition: 'width 300ms ease-in-out',
+                    //     whiteSpace: 'nowrap',
+                    //     overflow: 'hidden'
+                    //   },
+                    //   ':hover': {
+                    //     '::before': {
+                    //       width: '100%'
+                    //     }
+                    //   }
+                    // }}
+                    fontWeight={600}
+                    variant="h6"
+                    className="job-title"
+                  >
+                    {item.name}
+                  </Typography>
+                </Tooltip>
               }
               secondary={item.enterpriseName}
             />
@@ -82,54 +87,65 @@ const CardJob = ({ item }) => {
             direction="row"
             spacing={1}
           >
-            <Box
+            {/* <Box
               sx={{
                 backgroundColor: '#FFF4F3',
                 color: '#F81815',
-                fontWeight: 600,
+                fontWeight: 700,
                 padding: '5px 10px',
                 borderRadius: '5px'
               }}
               icon={false}
             >
-              <Typography variant="body1">Urgent</Typography>
-            </Box>
-            <Box
-              sx={{
-                backgroundColor: '#E8FFF0',
-                color: '#00B441',
-                fontWeight: 600,
-                padding: '5px 10px',
-                borderRadius: '5px'
-              }}
-              icon={false}
-            >
-              <Typography variant="body1">Fulltime</Typography>
-            </Box>
-            <Box
-              sx={{
-                backgroundColor: '#EBF9FF',
-                color: '#00A6E5',
-                fontWeight: 600,
-                padding: '5px 10px',
-                borderRadius: '5px'
-              }}
-              icon={false}
-            >
-              <Typography variant="body1">Remote</Typography>
-            </Box>
-            <Box
-              sx={{
-                backgroundColor: '#fff8e1',
-                color: '#ffa000',
-                fontWeight: 600,
-                padding: '5px 10px',
-                borderRadius: '5px'
-              }}
-              icon={false}
-            >
-              <Typography variant="body1">Part Time</Typography>
-            </Box>
+              <Typography textAlign="center" variant="body1">
+                Urgent
+              </Typography>
+            </Box> */}
+            {item.formality && (
+              <Box
+                sx={{
+                  backgroundColor: '#E8FFF0',
+                  color: '#00B441',
+                  padding: '5px 10px',
+                  borderRadius: '5px'
+                }}
+                icon={false}
+              >
+                <Typography fontWeight={700} textAlign="center" variant="body1">
+                  {item.formality}
+                </Typography>
+              </Box>
+            )}
+            {item.experience && (
+              <Box
+                sx={{
+                  backgroundColor: '#EBF9FF',
+                  color: '#00A6E5',
+                  padding: '5px 10px',
+                  borderRadius: '5px'
+                }}
+                icon={false}
+              >
+                <Typography fontWeight={700} textAlign="center" variant="body1">
+                  {item.experience}
+                </Typography>
+              </Box>
+            )}
+            {item.wage && (
+              <Box
+                sx={{
+                  backgroundColor: '#fff8e1',
+                  color: '#ffa000',
+                  padding: '5px 10px',
+                  borderRadius: '5px'
+                }}
+                icon={false}
+              >
+                <Typography fontWeight={700} textAlign="center" variant="body1">
+                  {item.wage}
+                </Typography>
+              </Box>
+            )}
           </Stack>
 
           <Stack
@@ -138,7 +154,7 @@ const CardJob = ({ item }) => {
             }}
             direction="row"
             spacing={1}
-            justifyContent="space-between"
+            justifyContent="flex-end"
           >
             <Box
               sx={{
@@ -147,9 +163,9 @@ const CardJob = ({ item }) => {
               }}
             >
               <AccessTime color="primary" fontSize="16px" sx={{ mr: 1 }} />
-              <Typography variant="subtitle1">Còn 3 ngày</Typography>
+              <Typography variant="subtitle1">{moment(item.deadline).fromNow()}</Typography>
             </Box>
-            <Box
+            {/* <Box
               sx={{
                 display: 'flex',
                 alignItems: 'center'
@@ -157,7 +173,7 @@ const CardJob = ({ item }) => {
             >
               <Place color="primary" fontSize="16px" sx={{ mr: 1 }} />
               <Typography variant="subtitle1">Hồ Chí Minh</Typography>
-            </Box>
+            </Box> */}
           </Stack>
         </Stack>
       </CardContent>

@@ -1,7 +1,9 @@
 import { KeyboardArrowUp } from '@mui/icons-material';
 import { Box, Fab, useScrollTrigger, Zoom } from '@mui/material';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
+import { selectIsLogin } from '../../redux/authSlice';
 import { Header } from '../Header';
 
 function ScrollTop(props) {
@@ -40,9 +42,14 @@ function ScrollTop(props) {
 }
 
 const ProfileLayout = ({ props }) => {
+  const isLogin = useSelector(selectIsLogin);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
-      <Header />
+      <Header isLogin={isLogin} />
       <Outlet />
       <ScrollTop {...props}>
         <Fab color="primary" size="small" aria-label="scroll back to top">

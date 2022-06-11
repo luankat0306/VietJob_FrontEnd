@@ -1,6 +1,7 @@
 import { CardJob } from '@/components/CardJob';
 import { NavigateNext } from '@mui/icons-material';
 import {
+  Box,
   Breadcrumbs,
   Card,
   CardActions,
@@ -8,10 +9,15 @@ import {
   Container,
   Grid,
   Link,
+  Pagination,
+  Skeleton,
   Stack,
   TextField,
   Typography
 } from '@mui/material';
+import { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { useJobs } from '../../hooks/job';
 
 function TimKiemViecLamPage() {
   const breadcrumbs = [
@@ -22,36 +28,15 @@ function TimKiemViecLamPage() {
       Tìm kiếm việc làm
     </Typography>
   ];
-  const mockJobs = [
-    {
-      name: 'Tài chính / Ngân hàng',
-      enterpriseName: 'Sacombank'
-    },
-    {
-      name: 'IT phần mềm',
-      enterpriseName: 'Fpt Software'
-    },
-    {
-      name: 'Kinh doanh / bán hàng',
-      enterpriseName: 'Vinamilk'
-    },
-    {
-      name: 'Bất động sản',
-      enterpriseName: 'VinGroup'
-    },
-    {
-      name: 'Kế toán / Kiểm toán',
-      enterpriseName: 'VinGroup'
-    },
-    {
-      name: 'Dịch vụ bán hàng',
-      enterpriseName: 'Thế Giới Di Động'
-    },
-    {
-      name: 'Hành chính / Văn phòng',
-      enterpriseName: 'HDBank'
-    }
-  ];
+
+  const [searchParams] = useSearchParams();
+  const [filter, setFilter] = useState({
+    page: 1,
+    limit: 10,
+    ...searchParams
+  });
+  const { data: jobs, isLoading } = useJobs({ ...filter, ...searchParams });
+  console.log(jobs);
   return (
     <Container sx={{ mt: 2 }}>
       <Breadcrumbs separator={<NavigateNext fontSize="small" />} aria-label="breadcrumb">
@@ -68,12 +53,39 @@ function TimKiemViecLamPage() {
         </CardActions>
         <CardContent sx={{ backgroundColor: '#f3f6f9' }}>
           <Grid container spacing={2}>
-            {mockJobs.map((job, index) => (
-              <Grid key={index} item xs={12} md={4}>
-                <CardJob item={job} />
-              </Grid>
-            ))}
+            {isLoading
+              ? Array.from({ length: 10 }).map((_, index) => (
+                  <Grid item xs={12} md={6} key={index}>
+                    <Skeleton height={'181px'} variant="rectangular" />
+                  </Grid>
+                ))
+              : jobs?.data?.map((job, index) => (
+                  <Grid key={index} item xs={12} md={6}>
+                    <CardJob
+                      item={{
+                        id: job._id,
+                        name: job.title,
+                        enterpriseName: job?.employer?.user?.name,
+                        formality: job.formality,
+                        wage: job.wage,
+                        experience: job.experience,
+                        deadline: job.deadline
+                      }}
+                    />
+                  </Grid>
+                ))}
           </Grid>
+          <Box mt={2} />
+          <Stack justifyContent="center" direction="row">
+            <Pagination
+              variant="text"
+              page={filter.page}
+              count={Math.floor((jobs?.totalPage ?? 9) / 10)}
+              onChange={(event, value) => {
+                setFilter({ ...filter, page: value });
+              }}
+            />
+          </Stack>
         </CardContent>
       </Card>
     </Container>

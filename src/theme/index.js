@@ -104,7 +104,8 @@ const bazarTheme = createTheme({
     },
     MuiTextField: {
       defaultProps: {
-        size: 'small',
+        // size: 'small',
+
         variant: 'outlined'
       }
     },
@@ -160,6 +161,13 @@ const bazarTheme = createTheme({
         paper: {
           borderRadius: 8
         }
+      }
+    },
+    MuiTooltip: {
+      defaultProps: {
+        // arrow: true,
+        // arrowSize: 'small',
+        followCursor: true
       }
     }
   }

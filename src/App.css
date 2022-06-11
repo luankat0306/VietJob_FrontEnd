@@ -27,7 +27,29 @@
 .App-link {
   color: #61dafb;
 }
-
+.job-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1; /* number of lines to show */
+  line-clamp: 1;
+  -webkit-box-orient: vertical;
+  min-height: 32px;
+  font-size: 16px !important;
+}
+.job-des {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  min-height: 48px;
+  font-size: 16px !important;
+}
+.job-title :hover {
+  color: '#1A237E';
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
