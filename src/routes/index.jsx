@@ -8,6 +8,9 @@ import TopCongTyPage from '@/pages/nha-tuyen-dung/top-cong-ty';
 import TimKiemViecLamPage from '@/pages/viec-lam/tim-kiem';
 import QuanLyBaiDangPage from '@/pages/nha-tuyen-dung/quan-ly-bai-dang';
 import KiemDuyetHoSoPage from '@/pages/nha-tuyen-dung/kiem-duyet-ho-so';
+import ViecLamDaUngTuyenPage from '@/pages/nguoi-tim-ciec/viec-lam-da-ung-tuyen';
+import QuanLyCVPage from '@/pages/nguoi-tim-ciec/quan-ly-cv';
+import ViecLamDaLuuPage from '@/pages/nguoi-tim-ciec/viec-lam-da-luu';
 
 const routes = [
   {
@@ -40,6 +43,28 @@ const routes = [
       {
         path: ':slug',
         element: <ChiTietViecLamPage />
+      }
+    ]
+  },
+  {
+    path: 'nguoi-tim-viec',
+    element: <ProfileLayout />,
+    children: [
+      {
+        index: true,
+        element: <ThongTinCaNhanPage />
+      },
+      {
+        path: 'viec-lam-da-ung-tuyen',
+        element: <ViecLamDaUngTuyenPage />
+      },
+      {
+        path: 'viec-lam-da-luu',
+        element: <ViecLamDaLuuPage />
+      },
+      {
+        path: 'quan-ly-cv',
+        element: <QuanLyCVPage />
       }
     ]
   },

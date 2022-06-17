@@ -44,7 +44,7 @@ function ScrollTop(props) {
 
 export const HomeLayout = ({ props }) => {
   return (
-    <>
+    <Box sx={{ backgroundColor: '#fff' }}>
       <Header />
       <Outlet />
       <ScrollTop {...props}>
@@ -52,7 +52,7 @@ export const HomeLayout = ({ props }) => {
           <KeyboardArrowUp />
         </Fab>
       </ScrollTop>
-    </>
+    </Box>
   );
 };
 
