@@ -14,7 +14,8 @@ import { primary } from '../../theme/themeColors';
 
 function JobListingBox(){
     return (
-        <Box sx={{p:2, 
+        <Box sx={{
+        p:2, 
         border: `3px solid #f4f4f4`,
         borderRadius:2,
         transition: 'ease-in-out 0.3s',
@@ -24,10 +25,9 @@ function JobListingBox(){
         boxShadow: `0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2)`,
         cursor: 'pointer'},
         }}>
-            <MuiGrid container direction='row' >
+            <MuiGrid container direction='row' xs={12} >
                 <MuiGrid item xs={2} >
                     <img src={avatar} style={{
-                        display:'block',
                         objectFit:'cover',
                         width:120,
                         height:100,

@@ -1,5 +1,5 @@
 import { createTheme } from '@mui/material/styles';
-import { error, grey, primary, secondary, success, warning } from './themeColors';
+import { error, grey, primary, secondary, success, warning,dark } from './themeColors';
 
 const fontSize = 14;
 
@@ -41,6 +41,7 @@ const bazarTheme = createTheme({
     error,
     warning,
     success,
+    dark,
     text: {
       primary: grey[900],
       secondary: grey[800],

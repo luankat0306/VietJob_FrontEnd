@@ -22,7 +22,7 @@ function DanhSachNhaTuyenDungPage(){
   return(
     <Paper sx={{}}>
       <EmployerSearchBar/>
-      <Box sx={{ width: '100%'}}>
+      <Box data-aos="fade-right" sx={{ width: '100%'}}>
         <Container>
           <Typography data-aos="fade-right" sx={{ 
             textAlign: 'center',
@@ -32,7 +32,7 @@ function DanhSachNhaTuyenDungPage(){
             Danh Sách Các Nhà Tuyển Dụng Nổi Bật
           </Typography>
           <Link href='/nha-tuyen-dung/danh-sach/chi-tiet-nha-tuyen-dung' underline='none'>
-          <MuiGrid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+          <MuiGrid data-aos="fade-right" container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
             {Array.from(Array(6)).map((_, index) => (
               <MuiGrid item xs={2} sm={4} md={4} key={index}>
                 <Card sx={{

@@ -58,3 +58,7 @@ export const warning = {
   main: '#FFCD4E',
   contrastText: '#FFFFFF'
 };
+export const dark = {
+  main: '#606060',
+  
+};

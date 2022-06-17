@@ -16,7 +16,7 @@ Button,
 
 function EmployerSearchBar(){
     return(
-        <Box fullwidth sx={{
+        <Box data-aos="fade-right" fullwidth sx={{
             background: `linear-gradient(${primary['main']}, ${primary[200]})`,
             height:'auto',
             mb:5
@@ -59,8 +59,8 @@ function EmployerSearchBar(){
                   </Stack>
                 </MuiGrid>
                 <MuiGrid item xs={7}>
-                  <img
-                    data-speed="-2"
+                  <img data-aos="fade-right"
+                    
                     style={{
                       objectFit: "cover",
                       width:'50%',
