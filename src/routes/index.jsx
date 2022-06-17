@@ -6,6 +6,8 @@ import DanhSachNhaTuyenDungPage from '@/pages/nha-tuyen-dung/danh-sach';
 import ChiTietNhaTuyenDungPage from '@/pages/nha-tuyen-dung/chi-tiet-nha-tuyen-dung';
 import TopCongTyPage from '@/pages/nha-tuyen-dung/top-cong-ty';
 import TimKiemViecLamPage from '@/pages/viec-lam/tim-kiem';
+import QuanLyBaiDangPage from '@/pages/nha-tuyen-dung/quan-ly-bai-dang';
+import KiemDuyetHoSoPage from '@/pages/nha-tuyen-dung/kiem-duyet-ho-so';
 import ViecLamDaUngTuyenPage from '@/pages/nguoi-tim-ciec/viec-lam-da-ung-tuyen';
 import QuanLyCVPage from '@/pages/nguoi-tim-ciec/quan-ly-cv';
 import ViecLamDaLuuPage from '@/pages/nguoi-tim-ciec/viec-lam-da-luu';
@@ -98,6 +100,14 @@ const routes = [
       {
         path: 'danh-sach/chi-tiet-nha-tuyen-dung',
         element: <ChiTietNhaTuyenDungPage />
+      },
+      {
+        path: 'quan-ly-bai-dang',
+        element: <QuanLyBaiDangPage />
+      },
+      {
+        path: 'kiem-duyet-ho-so',
+        element: <KiemDuyetHoSoPage/>
       }
     ]
   }
