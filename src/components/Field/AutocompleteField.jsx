@@ -24,6 +24,7 @@ function AutocompleteField({ rules, control, name, label, options = [], ...rest 
                 ...params.inputProps,
                 autoComplete: 'disabled' // disable autocomplete and autofill
               }}
+              siza="small"
             />
           )}
         />

@@ -47,10 +47,10 @@ const bazarTheme = createTheme({
       disabled: grey[400]
     },
     divider: grey[200],
-    grey: { ...grey },
-    background: {
-      default: '#fff'
-    }
+    grey: { ...grey }
+    // background: {
+    //   default: '#fff'
+    // }
   },
   typography: {
     fontSize,
@@ -104,7 +104,7 @@ const bazarTheme = createTheme({
     },
     MuiTextField: {
       defaultProps: {
-        // size: 'small',
+        size: 'small',
 
         variant: 'outlined'
       }

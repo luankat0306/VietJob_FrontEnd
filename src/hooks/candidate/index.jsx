@@ -1,5 +1,5 @@
 import { isEmpty } from '@/utils/verify';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import candidateApi from '../../api/candidateApi';
 
 const key = 'candidates';
@@ -20,13 +20,26 @@ export const useCandidateByUserId = (id) => {
 };
 
 export const useMutationCreateCandidate = () => {
-  return useMutation(candidateApi.createCandidate);
+  return useMutation(candidateApi.createCandidate, {
+    onSuccess: () => {
+      useQueryClient().invalidateQueries(key);
+    }
+  });
 };
 
 export const useMutationUpdateCandidate = () => {
-  return useMutation(candidateApi.updateCandidate);
+  const queryClient = useQueryClient();
+  return useMutation(candidateApi.updateCandidate, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(key);
+    }
+  });
 };
 
 export const useMutationDeleteCandidate = () => {
-  return useMutation(candidateApi.deleteCandidate);
+  return useMutation(candidateApi.deleteCandidate, {
+    onSuccess: () => {
+      useQueryClient().invalidateQueries(key);
+    }
+  });
 };

@@ -1,5 +1,6 @@
 import { KeyboardArrowUp } from '@mui/icons-material';
 import { Box, Fab, useScrollTrigger, Zoom } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
@@ -48,7 +49,7 @@ const ProfileLayout = ({ props }) => {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <>
+    <Box bgcolor={'#f3f6f9'} height="100%" minHeight="100vh">
       <Header isLogin={isLogin} />
       <Outlet />
       <ScrollTop {...props}>
@@ -56,7 +57,7 @@ const ProfileLayout = ({ props }) => {
           <KeyboardArrowUp />
         </Fab>
       </ScrollTop>
-    </>
+    </Box>
   );
 };
 

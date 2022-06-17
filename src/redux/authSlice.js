@@ -4,7 +4,7 @@ const initialState = {
   info: {
     email: '',
     gender: 0,
-    role: 0,
+    role: null,
     _id: 0
   },
   isLogin: false,
@@ -28,7 +28,7 @@ export const authSlice = createSlice({
       state.info = {
         email: '',
         gender: 0,
-        role: 0,
+        role: null,
         _id: 0
       };
       state.isLogin = false;

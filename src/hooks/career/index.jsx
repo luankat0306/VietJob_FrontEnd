@@ -1,3 +1,4 @@
+import { isEmpty } from '@/utils/verify';
 import { useMutation, useQuery } from 'react-query';
 import careerApi from '../../api/careerApi';
 
@@ -7,7 +8,9 @@ export const useCareers = (params) => {
 };
 
 export const useCareer = (id) => {
-  return useQuery([key, id], careerApi.getCareerById);
+  return useQuery([key, id], careerApi.getCareerById, {
+    enabled: !isEmpty(id)
+  });
 };
 
 export const useMutationCreateCareer = () => {

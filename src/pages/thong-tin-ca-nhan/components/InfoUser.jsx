@@ -1,5 +1,6 @@
 import { primary } from '@/theme/themeColors';
 import {
+  CalendarViewDay,
   EqualizerRounded,
   LayersRounded,
   LocalAtmRounded,
@@ -9,30 +10,46 @@ import {
 } from '@mui/icons-material';
 
 import LabelWithIcon from '@/components/Base/LabelWithIcon';
-import { Avatar, Button, Card, CardContent, Divider, Stack, Typography } from '@mui/material';
-import ButtonEdit from './ButtonEdit';
-import { useForm } from 'react-hook-form';
-import FieldLayout from '@/components/FieldLayout';
+import AutocompleteField from '@/components/Field/AutocompleteField';
+import DatePickerField from '@/components/Field/DatePickerField';
 import InputField from '@/components/Field/InputField';
+import FieldLayout from '@/components/FieldLayout';
+import { levels, salarys } from '@/utils/optionsData';
+import { Avatar, Button, Card, CardContent, Divider, Stack, Typography } from '@mui/material';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import ButtonEdit from './ButtonEdit';
+import { formatDate } from '@/utils/format';
+import { useProvince, useProvinces } from '@/hooks/province';
 
 const InfoUser = ({ data, onSubmit }) => {
-  const { control } = useForm();
+  const { data: menuProvince } = useProvinces({});
+  const { data: provinceData } = useProvince(data?.province);
+
+  console.log(menuProvince);
+
+  const { control, reset, handleSubmit } = useForm();
 
   const info = [
     {
       icon: PhoneRounded,
       title: 'Số điện thoại:',
-      content: data?.phoneNumber
+      content: data?.user?.phoneNumber
     },
     {
       icon: MailRounded,
       title: 'Email:',
-      content: data?.email
+      content: data?.user?.email
+    },
+    {
+      icon: CalendarViewDay,
+      title: 'Ngày sinh:',
+      content: formatDate(data?.user?.birthDay)
     },
     {
       icon: PlaceRounded,
       title: 'Địa chỉ:',
-      content: data?.address
+      content: provinceData?.name
     },
     {
       icon: EqualizerRounded,
@@ -40,22 +57,26 @@ const InfoUser = ({ data, onSubmit }) => {
       content: data?.appliedPosition
     },
     {
-      icon: LayersRounded,
-      title: 'Kinh nghiệm:',
-      content: data?.experience
-    },
-    {
       icon: LocalAtmRounded,
       title: 'Mức lương:',
       content: data?.wage
     }
   ];
+  useEffect(() => {
+    reset({
+      ...data,
+      province: {
+        value: provinceData?._id,
+        label: provinceData?.name
+      }
+    });
+  }, [data]);
   return (
-    <Card variant="outlined" sx={{ bgcolor: primary[50] }}>
+    <Card sx={{ bgcolor: primary[50] }}>
       <CardContent>
         <Stack alignItems="start" direction="row" spacing={2}>
           <Avatar sx={{ mt: 1, bgcolor: '#fff', width: 56, height: 56 }} variant="rounded">
-            {data?.avatar}
+            {data?.user?.avatar}
           </Avatar>
           <Stack
             sx={{
@@ -63,20 +84,44 @@ const InfoUser = ({ data, onSubmit }) => {
             }}
           >
             <Typography variant="h6" fontWeight={500}>
-              {data?.name}
+              {data?.user?.name}
             </Typography>
             <Typography variant="body2" color="textSecondary">
               {data?.position}
             </Typography>
           </Stack>
-          <ButtonEdit title="Thông tin cá nhân" fullWidth maxWidth="sm">
+          <ButtonEdit
+            title="Thông tin cá nhân"
+            fullWidth
+            maxWidth="sm"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <FieldLayout md={12} lg={12} xl={12} sx={{ mt: 2 }}>
-              <InputField name="name" control={control} label="Tên" />
-              <InputField name="email" control={control} label="Email" />
-              <InputField name="phoneNumber" control={control} label="Số điện thoại" />
-              <InputField name="birthDay" control={control} label="Ngày sinh" />
-              <InputField name="appliedPosition" control={control} label="Chức vụ" />
-              <InputField name="wage" control={control} label="Mức lương" />
+              <InputField name="user.name" control={control} label="Tên" />
+              <InputField name="user.email" control={control} label="Email" />
+              <InputField name="user.phoneNumber" control={control} label="Số điện thoại" />
+              <DatePickerField name="user.birthDay" control={control} label="Ngày sinh" />
+              <AutocompleteField
+                options={levels}
+                name="appliedPosition"
+                control={control}
+                label="Chức vụ"
+              />
+              <AutocompleteField
+                options={salarys}
+                name="wage"
+                control={control}
+                label="Mức lương"
+              />
+              <AutocompleteField
+                options={menuProvince?.map((item) => ({
+                  value: item?._id,
+                  label: item.name
+                }))}
+                name="province"
+                control={control}
+                label="Tỉnh/Thành phố"
+              />
             </FieldLayout>
           </ButtonEdit>
         </Stack>

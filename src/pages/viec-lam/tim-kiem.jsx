@@ -1,4 +1,5 @@
 import { CardJob } from '@/components/CardJob';
+import { removeEmpty } from '@/utils/format';
 import { NavigateNext } from '@mui/icons-material';
 import {
   Box,
@@ -30,13 +31,29 @@ function TimKiemViecLamPage() {
   ];
 
   const [searchParams] = useSearchParams();
+  const [title, province, career] = [
+    searchParams.get('title'),
+    searchParams.get('province'),
+    searchParams.get('career')
+  ];
   const [filter, setFilter] = useState({
     page: 1,
     limit: 10,
-    ...searchParams
+    ...removeEmpty({
+      province,
+      career,
+      title
+    })
   });
-  const { data: jobs, isLoading } = useJobs({ ...filter, ...searchParams });
-  console.log(jobs);
+  console.log(title);
+  const { data: jobs, isLoading } = useJobs({
+    ...filter,
+    ...removeEmpty({
+      province,
+      career,
+      title
+    })
+  });
   return (
     <Container sx={{ mt: 2 }}>
       <Breadcrumbs separator={<NavigateNext fontSize="small" />} aria-label="breadcrumb">

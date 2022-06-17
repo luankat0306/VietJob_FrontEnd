@@ -15,7 +15,7 @@ const useAuth = () => {
       { email, password },
       {
         onSuccess: (res) => {
-          dispatch(authActions.login(res.data));
+          dispatch(authActions.login(res));
           navigate('/');
         }
       }

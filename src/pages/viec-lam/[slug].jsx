@@ -52,12 +52,12 @@ const ChiTietViecLamPage = () => {
     {
       icon: MoreTimeRounded,
       title: 'Ngày đăng:',
-      content: formatDate(job?.data?.createAt)
+      content: formatDate(job?.createAt)
     },
     {
       icon: InsertInvitationRounded,
       title: 'Ngày hết hạn:',
-      content: formatDate(job?.data?.deadline)
+      content: formatDate(job?.deadline)
     },
     // {
     //   icon: LocationCityRounded,
@@ -67,22 +67,22 @@ const ChiTietViecLamPage = () => {
     {
       icon: EqualizerRounded,
       title: 'Chức vụ:',
-      content: job?.data?.level
+      content: job?.level
     },
     {
       icon: LayersRounded,
       title: 'Kinh nghiệm:',
-      content: job?.data?.experience
+      content: job?.experience
     },
     {
       icon: LocalAtmRounded,
       title: 'Mức lương:',
-      content: job?.data?.wage
+      content: job?.wage
     },
     {
       icon: AssignmentIndRounded,
       title: 'Số lượng:',
-      content: job?.data?.quantity
+      content: job?.quantity
     }
   ];
   return (
@@ -90,39 +90,39 @@ const ChiTietViecLamPage = () => {
       <Grid container spacing={4}>
         <Grid item xs={12} md={8} lg={8}>
           <Typography component="div" variant="h3" fontWeight={700}>
-            {job?.data?.title}
+            {job?.title}
           </Typography>
           <Typography mt={2} component="div" variant="h6" fontWeight={700}>
             Mô tả công việc:
           </Typography>
           <Typography mt={1} component="div" variant="body2" color="textSecondary">
-            <Box dangerouslySetInnerHTML={{ __html: job?.data?.description }} />
+            <Box dangerouslySetInnerHTML={{ __html: job?.description }} />
           </Typography>
           <Typography mt={2} component="div" variant="h6" fontWeight={700}>
             Yêu cầu công việc:
           </Typography>
           <Typography mt={1} component="div" variant="body2" color="textSecondary">
-            <Box dangerouslySetInnerHTML={{ __html: job?.data?.required }} />
+            <Box dangerouslySetInnerHTML={{ __html: job?.required }} />
           </Typography>
 
           <Typography mt={2} component="div" variant="h6" fontWeight={700}>
             Quyền lợi:
           </Typography>
           <Typography mt={1} component="div" variant="body2" color="textSecondary">
-            <Box dangerouslySetInnerHTML={{ __html: job?.data?.benefit }} />
+            <Box dangerouslySetInnerHTML={{ __html: job?.benefit }} />
           </Typography>
           <Typography mt={2} component="div" variant="h6" fontWeight={700}>
             Địa điểm làm việc:
           </Typography>
           <Typography mt={1} component="div" variant="body2" color="textSecondary">
-            <Box dangerouslySetInnerHTML={{ __html: job?.data?.address }} />
+            <Box dangerouslySetInnerHTML={{ __html: job?.address }} />
           </Typography>
           <Divider sx={{ mt: 2 }} />
           <Stack direction="row" spacing={2} alignItems="center">
             <Typography my={2} component="div" variant="h6" fontWeight={700}>
               Ngành nghề:
             </Typography>
-            {job?.data?.careers?.map((item, index) => (
+            {job?.careers?.map((item, index) => (
               <Card
                 key={index}
                 variant="outlined"
@@ -144,7 +144,7 @@ const ChiTietViecLamPage = () => {
             <Typography my={2} component="div" variant="h6" fontWeight={700}>
               Khu vực:
             </Typography>
-            {job?.data?.provinces?.map((item, index) => (
+            {job?.provinces?.map((item, index) => (
               <Card
                 key={index}
                 variant="outlined"
@@ -192,10 +192,10 @@ const ChiTietViecLamPage = () => {
                 </Avatar>
                 <Stack>
                   <Typography variant="h6" fontWeight={500}>
-                    {job?.data?.employer?.user?.name}
+                    {job?.employer?.user?.name}
                   </Typography>
                   <Typography className="job-des" variant="body2" color="textSecondary">
-                    {job?.data?.employer?.description}
+                    {job?.employer?.description}
                   </Typography>
                 </Stack>
               </Stack>

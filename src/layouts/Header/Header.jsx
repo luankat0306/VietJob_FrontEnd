@@ -67,7 +67,7 @@ const Header = (props) => {
             label="Hồ sơ & CV"
             listMenu={[
               { label: 'Quản lý CV', href: '/nguoi-tim-viec/quan-ly-cv' },
-              { label: 'Thông tin cá nhân', href: '/thong-tin-ca-nhan' }
+              { label: 'Thông tin cá nhân', href: '/nguoi-tim-viec/thong-tin-ca-nhan' }
             ]}
           />
           <NavItem

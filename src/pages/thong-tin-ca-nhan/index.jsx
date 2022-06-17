@@ -1,10 +1,12 @@
-import { useCandidateByUserId } from '@/hooks/candidate';
+import { useCandidateByUserId, useMutationUpdateCandidate } from '@/hooks/candidate';
 import { grey } from '@/theme/themeColors';
 import { HorizontalRuleRounded } from '@mui/icons-material';
 
 import { selectUserInfo } from '@/redux/authSlice';
 import {
+  Box,
   Card,
+  CardContent,
   Container,
   Divider,
   Grid,
@@ -18,232 +20,88 @@ import { useSelector } from 'react-redux';
 import ButtonEdit from './components/ButtonEdit';
 import Description from './components/Description';
 import InfoUser from './components/InfoUser';
+import Education from './components/Education';
+import Experience from './components/Eperience';
+import Certificate from './components/Certificate';
 
 const ThongTinCaNhanPage = () => {
   const info = useSelector(selectUserInfo);
-  const { data: candidate } = useCandidateByUserId(info._id);
-  const onSubmitDescription = (data) => {
-    console.log(data);
+  const { data: candidate } = useCandidateByUserId(info?._id);
+  const { mutateAsync } = useMutationUpdateCandidate();
+  const onSubmitDescription = async (data) => {
+    await mutateAsync({
+      _id: candidate?._id,
+      moreInfo: data.moreInfo
+    });
   };
-  console.log(candidate);
   const infoUser = {
-    name: candidate?.user?.name,
-    avatar: candidate?.user?.avatar,
-    phoneNumber: candidate?.user?.phoneNumber,
-    email: candidate?.user?.email,
-    address: candidate?.address,
-    appliedPosition: candidate?.appliedPosition,
+    ...candidate
+    // name: candidate?.user?.name,
+    // avatar: candidate?.user?.avatar,
+    // phoneNumber: candidate?.user?.phoneNumber,
+    // email: candidate?.user?.email,
+    // birthday: candidate?.user?.birthday ?? null
+  };
 
-    experience: candidate?.experience,
-    wage: candidate?.wage
+  const onSubmitUserInfo = async (data) => {
+    const { _id, __v, user, province, ...rest } = data;
+    console.log(user);
+    const newUser = {
+      name: user?.name,
+      phoneNumber: user?.phoneNumber,
+      email: user?.email,
+      birthDay: user?.birthDay
+    };
+    await mutateAsync({ _id, ...rest, province: province?.value, userId: user._id, user: newUser });
   };
   return (
-    <Container fixed sx={{ mt: 4, mb: 4 }}>
+    <Container sx={{ mt: 4 }}>
       <Grid container spacing={4}>
         <Grid item xs={12} md={4} lg={4}>
-          <InfoUser data={infoUser} />
+          <InfoUser data={infoUser} onSubmit={onSubmitUserInfo} />
         </Grid>
         <Grid item xs={12} md={8} lg={8}>
-          <Description onSubmit={onSubmitDescription} />
-          <Typography mt={2} component="div" variant="h6" fontWeight={700}>
-            Học vấn <ButtonEdit title="Học vấn" />
-          </Typography>
-          {/* <Typography mt={2} component="div" variant="body2" color="textSecondary"> */}
-          <List disablePadding>
-            <ListItem disableGutters>
-              <ListItemIcon
-                sx={{
-                  '&.MuiListItemIcon-root': {
-                    minWidth: '32px'
-                  }
-                }}
-              >
-                <HorizontalRuleRounded color="primary" />
-              </ListItemIcon>
-              Lorem decore nullam te eum id evertitur reformidans sea id possit principes.
-            </ListItem>
-            <ListItem disableGutters>
-              <ListItemIcon
-                sx={{
-                  '&.MuiListItemIcon-root': {
-                    minWidth: '32px'
-                  }
-                }}
-              >
-                <HorizontalRuleRounded color="primary" />
-              </ListItemIcon>
-              Dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt.
-            </ListItem>
-            <ListItem disableGutters>
-              <ListItemIcon
-                sx={{
-                  '&.MuiListItemIcon-root': {
-                    minWidth: '32px'
-                  }
-                }}
-              >
-                <HorizontalRuleRounded color="primary" />
-              </ListItemIcon>
-              Consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore
-              magna aliquyam erat.
-            </ListItem>
-            <ListItem disableGutters>
-              <ListItemIcon
-                sx={{
-                  '&.MuiListItemIcon-root': {
-                    minWidth: '32px'
-                  }
-                }}
-              >
-                <HorizontalRuleRounded color="primary" />
-              </ListItemIcon>
-              Sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
-              aliquyam erat.
-            </ListItem>
-          </List>
+          <Description data={infoUser} onSubmit={onSubmitDescription} />
+          <Box mt={2} />
+          <Education data={infoUser} />
+          <Box mt={2} />
 
-          <Typography mt={2} component="div" variant="h6" fontWeight={700}>
-            Kinh nghiệm <ButtonEdit title="Kinh nghiệm" />
-          </Typography>
-          {/* <Typography mt={2} component="div" variant="body2" color="textSecondary"> */}
-          <List disablePadding>
-            <ListItem disableGutters>
-              <ListItemIcon
-                sx={{
-                  '&.MuiListItemIcon-root': {
-                    minWidth: '32px'
-                  }
-                }}
-              >
-                <HorizontalRuleRounded color="primary" />
-              </ListItemIcon>
-              Lorem decore nullam te eum id evertitur reformidans sea id possit principes.
-            </ListItem>
-            <ListItem disableGutters>
-              <ListItemIcon
-                sx={{
-                  '&.MuiListItemIcon-root': {
-                    minWidth: '32px'
-                  }
-                }}
-              >
-                <HorizontalRuleRounded color="primary" />
-              </ListItemIcon>
-              Dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt.
-            </ListItem>
-            <ListItem disableGutters>
-              <ListItemIcon
-                sx={{
-                  '&.MuiListItemIcon-root': {
-                    minWidth: '32px'
-                  }
-                }}
-              >
-                <HorizontalRuleRounded color="primary" />
-              </ListItemIcon>
-              Consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore
-              magna aliquyam erat.
-            </ListItem>
-            <ListItem disableGutters>
-              <ListItemIcon
-                sx={{
-                  '&.MuiListItemIcon-root': {
-                    minWidth: '32px'
-                  }
-                }}
-              >
-                <HorizontalRuleRounded color="primary" />
-              </ListItemIcon>
-              Sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
-              aliquyam erat.
-            </ListItem>
-          </List>
+          <Experience data={infoUser} />
+          <Box mt={2} />
 
-          <Typography mt={2} component="div" variant="h6" fontWeight={700}>
-            Chứng chỉ <ButtonEdit title="Chứng chỉ" />
-          </Typography>
-          <List disablePadding>
-            <ListItem disableGutters>
-              <ListItemIcon
-                sx={{
-                  '&.MuiListItemIcon-root': {
-                    minWidth: '32px'
-                  }
-                }}
-              >
-                <HorizontalRuleRounded color="primary" />
-              </ListItemIcon>
-              Lorem decore nullam te eum id evertitur reformidans sea id possit principes.
-            </ListItem>
-            <ListItem disableGutters>
-              <ListItemIcon
-                sx={{
-                  '&.MuiListItemIcon-root': {
-                    minWidth: '32px'
-                  }
-                }}
-              >
-                <HorizontalRuleRounded color="primary" />
-              </ListItemIcon>
-              Dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt.
-            </ListItem>
-            <ListItem disableGutters>
-              <ListItemIcon
-                sx={{
-                  '&.MuiListItemIcon-root': {
-                    minWidth: '32px'
-                  }
-                }}
-              >
-                <HorizontalRuleRounded color="primary" />
-              </ListItemIcon>
-              Consetetur sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore
-              magna aliquyam erat.
-            </ListItem>
-            <ListItem disableGutters>
-              <ListItemIcon
-                sx={{
-                  '&.MuiListItemIcon-root': {
-                    minWidth: '32px'
-                  }
-                }}
-              >
-                <HorizontalRuleRounded color="primary" />
-              </ListItemIcon>
-              Sadipscing elitr sed diam nonumy eirmod tempor invidunt ut labore et dolore magna
-              aliquyam erat.
-            </ListItem>
-          </List>
-          <Divider sx={{ mt: 2 }} />
-          <Stack direction="row" spacing={2} alignItems="center">
-            <Typography my={2} component="div" variant="h6" fontWeight={700}>
-              Kỹ năng <ButtonEdit title="Kỹ năng" />
-            </Typography>
-            <Card
-              variant="outlined"
-              sx={{
-                p: 1,
-                bgcolor: grey[200],
-                color: grey[600],
-                fontWeight: 700
-              }}
-            >
-              React
-            </Card>
-            <Card
-              variant="outlined"
-              sx={{
-                p: 1,
-                bgcolor: grey[200],
-                color: grey[600],
-                fontWeight: 700
-              }}
-            >
-              NodeJs
-            </Card>
-          </Stack>
-
-          <Divider />
+          <Certificate data={infoUser} />
+          <Box mt={2} />
+          <Card>
+            <CardContent>
+              <Stack direction="row" spacing={2} alignItems="center">
+                <Typography my={2} component="div" variant="h6" fontWeight={700}>
+                  Kỹ năng <ButtonEdit title="Kỹ năng" />
+                </Typography>
+                <Card
+                  variant="outlined"
+                  sx={{
+                    p: 1,
+                    bgcolor: grey[200],
+                    color: grey[600],
+                    fontWeight: 700
+                  }}
+                >
+                  React
+                </Card>
+                <Card
+                  variant="outlined"
+                  sx={{
+                    p: 1,
+                    bgcolor: grey[200],
+                    color: grey[600],
+                    fontWeight: 700
+                  }}
+                >
+                  NodeJs
+                </Card>
+              </Stack>
+            </CardContent>
+          </Card>
           {/* </Typography> */}
         </Grid>
       </Grid>

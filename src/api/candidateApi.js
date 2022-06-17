@@ -15,7 +15,8 @@ const candidateApi = {
     return await axiosClient.candidate(endPoint, candidate);
   },
   updateCandidate: async (candidate) => {
-    return await axiosClient.put(`${endPoint}/${candidate.id}`, candidate);
+    const { _id, ...data } = candidate;
+    return await axiosClient.put(`${endPoint}/${_id}`, data);
   },
   deleteCandidate: async (id) => {
     return await axiosClient.delete(`${endPoint}/${id}`);

@@ -1,3 +1,4 @@
+import { isEmpty } from '@/utils/verify';
 import { useMutation, useQuery } from 'react-query';
 import provinceApi from '../../api/provinceApi';
 
@@ -7,7 +8,9 @@ export const useProvinces = (params) => {
 };
 
 export const useProvince = (id) => {
-  return useQuery([key, id], provinceApi.getProvinceById);
+  return useQuery([key, id], provinceApi.getProvinceById, {
+    enabled: !isEmpty(id)
+  });
 };
 
 export const useMutationCreateProvince = () => {
