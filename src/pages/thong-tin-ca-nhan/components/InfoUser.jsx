@@ -42,7 +42,7 @@ const InfoUser = ({ data, onSubmit }) => {
     {
       icon: CalendarViewDay,
       title: 'Ngày sinh:',
-      content: formatDate(data?.user?.birthDay)
+      content: data?.user?.birthDay ? formatDate(data?.user?.birthDay) : ''
     },
     {
       icon: PlaceRounded,
@@ -63,10 +63,12 @@ const InfoUser = ({ data, onSubmit }) => {
   useEffect(() => {
     reset({
       ...data,
-      province: {
-        value: provinceData?._id,
-        label: provinceData?.name
-      }
+      province: provinceData
+        ? {
+            value: provinceData?._id,
+            label: provinceData?.name
+          }
+        : null
     });
   }, [data]);
   return (
@@ -78,7 +80,7 @@ const InfoUser = ({ data, onSubmit }) => {
             sx={{ mt: 1, width: 56, height: 56, bgcolor: '#fff', color: primary['main'] }}
             variant="rounded"
           >
-            {data?.user?.name[0]}
+            {data?.user?.name?.[0]}
           </Avatar>
           <Stack
             sx={{
