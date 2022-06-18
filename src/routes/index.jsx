@@ -2,6 +2,7 @@ import { HomeLayout, MainLayout } from '@/layouts';
 import { ProfileLayout } from '@/layouts/ProfileLayout';
 
 import ThongTinCaNhanPage from '@/pages/thong-tin-ca-nhan';
+import ThongTinCaNhanNTDPage from '@/pages/nha-tuyen-dung/thong-tin-ca-nhan';
 import DanhSachNhaTuyenDungPage from '@/pages/nha-tuyen-dung/danh-sach';
 import ChiTietNhaTuyenDungPage from '@/pages/nha-tuyen-dung/chi-tiet-nha-tuyen-dung';
 import TopCongTyPage from '@/pages/nha-tuyen-dung/top-cong-ty';
@@ -90,6 +91,10 @@ const routes = [
     path: 'nha-tuyen-dung',
     element: <MainLayout hasSearchBar={false} />,
     children: [
+      {
+        path: 'thong-tin-ca-nhan',
+        element: <ThongTinCaNhanNTDPage />
+      },
       {
         path: 'danh-sach',
         element: <DanhSachNhaTuyenDungPage />

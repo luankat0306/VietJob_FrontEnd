@@ -29,7 +29,8 @@ function DangNhapPage() {
   const { control, handleSubmit, watch } = useForm({
     defaultValues: {
       email: '',
-      password: ''
+      password: '',
+      role: 0
     }
   });
   const password = watch('password');
