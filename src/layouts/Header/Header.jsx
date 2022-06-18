@@ -34,10 +34,10 @@ const Header = (props) => {
   const { isLogin = false, ...rest } = props;
   const navigate = useNavigate();
   const [anchorElUser, setAnchorElUser] = useState(null);
-  const { logoutCandidate } = useAuth();
+  const { logout } = useAuth();
   const settings = [
-    { label: 'Thông tin cá nhân', onClick: logoutCandidate },
-    { label: 'Đăng xuất', onClick: logoutCandidate }
+    { label: 'Thông tin cá nhân', onClick: () => navigate('/nguoi-tim-viec/thong-tin-ca-nhan') },
+    { label: 'Đăng xuất', onClick: logout }
   ];
 
   const handleOpenUserMenu = (event) => {
