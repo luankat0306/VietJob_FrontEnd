@@ -78,7 +78,7 @@ const InfoUser = ({ data, onSubmit }) => {
             sx={{ mt: 1, width: 56, height: 56, bgcolor: '#fff', color: primary['main'] }}
             variant="rounded"
           >
-            {data?.user?.name[0]}
+            {data?.user?.name?.[0]}
           </Avatar>
           <Stack
             sx={{
