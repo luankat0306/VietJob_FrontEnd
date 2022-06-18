@@ -11,6 +11,7 @@ import KiemDuyetHoSoPage from '@/pages/nha-tuyen-dung/kiem-duyet-ho-so';
 import ViecLamDaUngTuyenPage from '@/pages/nguoi-tim-ciec/viec-lam-da-ung-tuyen';
 import QuanLyCVPage from '@/pages/nguoi-tim-ciec/quan-ly-cv';
 import ViecLamDaLuuPage from '@/pages/nguoi-tim-ciec/viec-lam-da-luu';
+import ThongKePage from '@/pages/nha-tuyen-dung/thong-ke';
 
 const routes = [
   {
@@ -91,6 +92,10 @@ const routes = [
       {
         path: 'kiem-duyet-ho-so',
         element: <KiemDuyetHoSoPage/>
+      },
+      {
+        path: 'thong-ke',
+        element: <ThongKePage/>
       }
     ]
   }
