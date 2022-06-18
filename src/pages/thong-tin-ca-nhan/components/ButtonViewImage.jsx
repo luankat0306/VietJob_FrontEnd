@@ -1,6 +1,6 @@
-import { EditRounded } from '@mui/icons-material';
+import { Image } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { IconButton } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -8,11 +8,11 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as React from 'react';
 
-export default function ButtonEdit({
+export default function ButtonViewImage({
   button: NewButton,
   title,
   onSubmit,
-  children,
+  image,
   sx,
   onClick,
   fontSize,
@@ -42,25 +42,23 @@ export default function ButtonEdit({
       {NewButton ? (
         Component
       ) : (
-        <IconButton size="small" onClick={handleClickOpen} sx={sx}>
-          <EditRounded
-            sx={{
-              fontSize: fontSize
-            }}
-            fontSize="small"
-          />
-        </IconButton>
+        <Tooltip title="Ảnh đính kèm">
+          <IconButton size="small" onClick={handleClickOpen} sx={sx}>
+            <Image fontSize="small" />
+          </IconButton>
+        </Tooltip>
       )}
 
       <Dialog fullWidth maxWidth="md" open={open} onClose={handleClose} {...rest}>
         <DialogTitle>{title}</DialogTitle>
         <DialogContent>
-          {children}
+          {/* {children} */}
           {/* <TextareaAutosize style={{ width: '100%', minHeight: '300px' }} /> */}
+          <img src={image} alt="" style={{ width: '100%' }} />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Đóng</Button>
-          <LoadingButton
+          {/* <LoadingButton
             loading={isLoading}
             color="primary"
             variant="contained"
@@ -70,7 +68,7 @@ export default function ButtonEdit({
             }}
           >
             Lưu
-          </LoadingButton>
+          </LoadingButton> */}
         </DialogActions>
       </Dialog>
     </>

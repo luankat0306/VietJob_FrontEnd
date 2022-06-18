@@ -46,7 +46,8 @@ function ScrollTop(props) {
   );
 }
 
-export const MainLayout = ({ props }) => {
+export const MainLayout = (props) => {
+  const { hasSearchBar = true, ...rest } = props;
   const isLogin = useSelector(selectIsLogin);
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -54,9 +55,9 @@ export const MainLayout = ({ props }) => {
   return (
     <>
       <Header isLogin={isLogin} />
-      <SearchBar />
+      {hasSearchBar && <SearchBar />}
       <Outlet />
-      <ScrollTop {...props}>
+      <ScrollTop {...rest}>
         <Fab color="primary" size="small" aria-label="scroll back to top">
           <KeyboardArrowUp />
         </Fab>

@@ -67,14 +67,14 @@ const Banner = () => {
                   label="Tỉnh/Thành phố"
                   name="province"
                   control={control}
-                  options={menuProvince?.data?.map((item) => item.name)}
+                  options={menuProvince?.map((item) => item.name)}
                   sx={{ '&.MuiTextField-root': { backgroundColor: grey[200] } }}
                 />
                 <AutocompleteField
                   label="Ngành nghề"
                   name="career"
                   control={control}
-                  options={menuCareer?.data?.map((item) => item.name)}
+                  options={menuCareer?.map((item) => item.name)}
                   sx={{ '&.MuiTextField-root': { backgroundColor: grey[200] } }}
                 />
 

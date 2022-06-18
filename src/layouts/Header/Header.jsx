@@ -1,3 +1,5 @@
+import { selectUserInfo } from '@/redux/authSlice';
+import { primary } from '@/theme/themeColors';
 import {
   AppBar,
   Avatar,
@@ -13,6 +15,7 @@ import {
   Typography
 } from '@mui/material';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { NavItem } from '.';
 import useAuth from '../../hooks/auth/useAuth';
@@ -44,6 +47,7 @@ const Header = (props) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const info = useSelector(selectUserInfo);
   return (
     <AppBar position="relative" color="inherit" elevation={1} {...rest}>
       {/* <HeaderWrapper> */}
@@ -83,7 +87,16 @@ const Header = (props) => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar
+                  sx={{
+                    border: '1px solid' + primary[200],
+                    p: '8px',
+                    width: 56,
+                    height: 56
+                  }}
+                  alt={info?.name}
+                  src={info?.avatar}
+                />
               </IconButton>
             </Tooltip>
             <Menu

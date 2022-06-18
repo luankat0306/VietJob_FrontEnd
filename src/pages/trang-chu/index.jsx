@@ -1,10 +1,10 @@
 import Banner from '@/components/Banner';
+import { CardJob } from '@/components/CardJob';
+import { useJobs } from '@/hooks/job';
 import {
-  AccessTime,
   BusinessCenterRounded,
   NavigateBeforeRounded,
-  NavigateNextRounded,
-  Place
+  NavigateNextRounded
 } from '@mui/icons-material';
 import {
   Avatar,
@@ -17,11 +17,14 @@ import {
   ListItemAvatar,
   ListItemText,
   Stack,
-  Typography
+  Typography,
+  Grid,
+  Pagination,
+  Skeleton
 } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Autoplay, Controller, Grid, Pagination } from 'swiper';
+import { Autoplay, Controller } from 'swiper';
 import 'swiper/css';
 import 'swiper/css/grid';
 import 'swiper/css/navigation';
@@ -65,6 +68,11 @@ function Home() {
   const [controlledSwiper2, setControlledSwiper2] = useState(null);
 
   const navigate = useNavigate();
+  const [filter, setFilter] = useState({
+    page: 1,
+    limit: 6
+  });
+  const { data: jobs, isLoading } = useJobs(filter);
 
   return (
     <>
@@ -147,183 +155,41 @@ function Home() {
                 Tin tuyển dung, việc làm tốt nhất
               </Typography>
 
-              <Box className="swiper-container">
-                <IconButton
-                  disabled={!controlledSwiper?.isBeginning}
-                  color="primary"
-                  className="button-prev"
-                  onClick={() => {
-                    controlledSwiper.slidePrev();
-                  }}
-                >
-                  <NavigateBeforeRounded />
-                </IconButton>
-                <IconButton
-                  disabled={!controlledSwiper?.isEnd}
-                  color="primary"
-                  className="button-next"
-                  onClick={() => controlledSwiper.slideNext()}
-                >
-                  <NavigateNextRounded />
-                </IconButton>
-                <Swiper
-                  controller={{ control: controlledSwiper }}
-                  onSwiper={setControlledSwiper}
-                  spaceBetween={30}
-                  slidesPerView={3}
-                  grid={{
-                    rows: 2,
-                    fill: 'row'
-                  }}
-                  pagination={{
-                    clickable: true
-                  }}
-                  modules={[Grid, Controller, Pagination]}
-                >
-                  {mockCategories.map((item, index) => {
-                    return (
-                      <SwiperSlide key={index + 1}>
-                        <Card
-                          onClick={() => navigate('viec-lam/viec-lam-01')}
-                          sx={{
-                            border: `1px solid transparent`,
-                            transition: 'ease-in-out 0.3s',
-                            ':hover': {
-                              border: `1px solid ${primary[900]}`,
-                              cursor: 'pointer'
-                            }
+              <Grid container spacing={2}>
+                {isLoading
+                  ? Array.from({ length: 6 }).map((_, index) => (
+                      <Grid item xs={12} md={6} key={index}>
+                        <Skeleton height={'181px'} variant="rectangular" />
+                      </Grid>
+                    ))
+                  : jobs?.data?.map((job, index) => (
+                      <Grid key={index} item xs={12} md={6}>
+                        <CardJob
+                          item={{
+                            id: job._id,
+                            name: job.title,
+                            enterpriseName: job?.employer?.user?.name,
+                            formality: job.formality,
+                            wage: job.wage,
+                            experience: job.experience,
+                            deadline: job.deadline,
+                            avatar: job?.employer?.user?.avatar
                           }}
-                        >
-                          <CardContent>
-                            <Stack>
-                              <ListItem disablePadding>
-                                <ListItemAvatar>
-                                  <Avatar sx={{ bgcolor: primary[500] }}>
-                                    <BusinessCenterRounded />
-                                  </Avatar>
-                                </ListItemAvatar>
-                                <ListItemText
-                                  primary={
-                                    <Typography
-                                      data-content={item.name}
-                                      sx={{
-                                        display: 'inline-block',
-                                        position: 'relative',
-                                        overflow: 'hidden',
-                                        color: 'primary.main',
-                                        '::before': {
-                                          content: 'attr(data-content)',
-                                          color: 'primary.900',
-                                          position: 'absolute',
-                                          top: '0',
-                                          left: '0',
-                                          width: '0',
-                                          transition: 'width 300ms ease-in-out',
-                                          whiteSpace: 'nowrap',
-                                          overflow: 'hidden'
-                                        },
-                                        ':hover': {
-                                          '::before': {
-                                            width: '100%'
-                                          }
-                                        }
-                                      }}
-                                      fontWeight={600}
-                                      variant="h6"
-                                    >
-                                      {item.name}
-                                    </Typography>
-                                  }
-                                  secondary={`${formatNumber(item.countJobs)} việc làm`}
-                                />
-                              </ListItem>
-
-                              <Stack direction="row" spacing={1}>
-                                <Box
-                                  sx={{
-                                    backgroundColor: '#FFF4F3',
-                                    color: '#F81815',
-                                    fontWeight: 600,
-                                    padding: '5px 10px',
-                                    borderRadius: '5px'
-                                  }}
-                                  icon={false}
-                                >
-                                  <Typography variant="body1">Urgent</Typography>
-                                </Box>
-                                <Box
-                                  sx={{
-                                    backgroundColor: '#E8FFF0',
-                                    color: '#00B441',
-                                    fontWeight: 600,
-                                    padding: '5px 10px',
-                                    borderRadius: '5px'
-                                  }}
-                                  icon={false}
-                                >
-                                  <Typography variant="body1">Fulltime</Typography>
-                                </Box>
-                                <Box
-                                  sx={{
-                                    backgroundColor: '#EBF9FF',
-                                    color: '#00A6E5',
-                                    fontWeight: 600,
-                                    padding: '5px 10px',
-                                    borderRadius: '5px'
-                                  }}
-                                  icon={false}
-                                >
-                                  <Typography variant="body1">Remote</Typography>
-                                </Box>
-                                <Box
-                                  sx={{
-                                    backgroundColor: '#fff8e1',
-                                    color: '#ffa000',
-                                    fontWeight: 600,
-                                    padding: '5px 10px',
-                                    borderRadius: '5px'
-                                  }}
-                                  icon={false}
-                                >
-                                  <Typography variant="body1">Part Time</Typography>
-                                </Box>
-                              </Stack>
-
-                              <Stack
-                                sx={{
-                                  mt: 2
-                                }}
-                                direction="row"
-                                spacing={1}
-                                justifyContent="space-between"
-                              >
-                                <Box
-                                  sx={{
-                                    display: 'flex',
-                                    alignItems: 'center'
-                                  }}
-                                >
-                                  <AccessTime color="primary" fontSize="16px" sx={{ mr: 1 }} />
-                                  <Typography variant="subtitle1">Còn 3 ngày</Typography>
-                                </Box>
-                                <Box
-                                  sx={{
-                                    display: 'flex',
-                                    alignItems: 'center'
-                                  }}
-                                >
-                                  <Place color="primary" fontSize="16px" sx={{ mr: 1 }} />
-                                  <Typography variant="subtitle1">Hồ Chí Minh</Typography>
-                                </Box>
-                              </Stack>
-                            </Stack>
-                          </CardContent>
-                        </Card>
-                      </SwiperSlide>
-                    );
-                  })}
-                </Swiper>
-              </Box>
+                        />
+                      </Grid>
+                    ))}
+              </Grid>
+              <Box mt={2} />
+              <Stack justifyContent="center" direction="row">
+                <Pagination
+                  variant="text"
+                  page={filter.page}
+                  count={Math.floor((jobs?.totalPage ?? 9) / 10)}
+                  onChange={(event, value) => {
+                    setFilter({ ...filter, page: value });
+                  }}
+                />
+              </Stack>
             </Box>
           </Container>
         </Box>

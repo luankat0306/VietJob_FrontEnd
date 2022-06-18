@@ -24,8 +24,8 @@ import ButtonEdit from './ButtonEdit';
 
 const Experience = ({ data }) => {
   const { data: experiences = [] } = useExperiences({ candidateId: data?._id });
-  const { mutateAsync: mutateCreate } = useMutationCreateExperience();
-  const { mutateAsync: mutateUpdate } = useMutationUpdateExperience();
+  const { mutateAsync: mutateCreate, isLoading: isLoadingCreate } = useMutationCreateExperience();
+  const { mutateAsync: mutateUpdate, isLoading: isLoadingUpdate } = useMutationUpdateExperience();
   const { control, handleSubmit, reset } = useForm({
     defaultValues: {
       title: '',
@@ -43,21 +43,6 @@ const Experience = ({ data }) => {
     const { __v, candidate, ...rest } = values;
     await mutateUpdate({ ...rest, candidateId: candidate });
   };
-
-  useEffect(() => {
-    const experience = experiences.find((item) => item._id === showEdit);
-    if (experience) {
-      reset(experience);
-    } else {
-      console.log('reset');
-      reset({
-        title: '',
-        dateStart: null,
-        dateEnd: null,
-        description: ''
-      });
-    }
-  }, [showEdit]);
 
   return (
     <Card>
@@ -91,10 +76,15 @@ const Experience = ({ data }) => {
                   </Typography>
                   {/* {showEdit === experience._id && ( */}
                   <ButtonEdit
+                    isLoading={isLoadingUpdate}
                     fullWidth
                     maxWidth="sm"
                     title="Kinh nghiệm"
                     onClick={() => {
+                      const experience = experiences.find((item) => item._id === showEdit);
+                      if (experience) {
+                        reset(experience);
+                      }
                       setShowEdit('');
                     }}
                     sx={{
@@ -121,6 +111,10 @@ const Experience = ({ data }) => {
             </TimelineItem>
           ))}
           <ButtonEdit
+            isLoading={isLoadingCreate}
+            onClick={() => {
+              reset();
+            }}
             button={
               <TimelineItem
                 sx={{

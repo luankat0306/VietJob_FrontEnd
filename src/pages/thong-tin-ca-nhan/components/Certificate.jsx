@@ -1,6 +1,4 @@
-import UploadFile from '@/components/Base/UploadFile';
 import CKEditorField from '@/components/Field/CKEditorField';
-import DatePickerField from '@/components/Field/DatePickerField';
 import InputField from '@/components/Field/InputField';
 import UploadField from '@/components/Field/UploadField';
 import FieldLayout from '@/components/FieldLayout';
@@ -9,8 +7,8 @@ import {
   useMutationCreateCertificate,
   useMutationUpdateCertificate
 } from '@/hooks/certificate';
-import { formatDate } from '@/utils/format';
-import { Add, Image, ImageAspectRatio, Upload } from '@mui/icons-material';
+import useUploadFile from '@/hooks/uploadFile';
+import { Add, Image } from '@mui/icons-material';
 import {
   Timeline,
   TimelineConnector,
@@ -19,16 +17,18 @@ import {
   TimelineItem,
   TimelineSeparator
 } from '@mui/lab';
-import { Card, CardContent, Icon, IconButton, Stack, Tooltip, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { Card, CardContent, IconButton, Stack, Tooltip, Typography } from '@mui/material';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import ButtonEdit from './ButtonEdit';
+import ButtonViewImage from './ButtonViewImage';
 
 const Certificate = ({ data }) => {
   const { data: certificates = [] } = useCertificates({ candidateId: data?._id });
-  const { mutateAsync: mutateCreate } = useMutationCreateCertificate();
-  const { mutateAsync: mutateUpdate } = useMutationUpdateCertificate();
-  const { control, handleSubmit, reset } = useForm({
+  const { mutateAsync: mutateCreate, isLoading: isLoadingCreate } = useMutationCreateCertificate();
+  const { mutateAsync: mutateUpdate, isLoading: isLoadingUpdate } = useMutationUpdateCertificate();
+  const { uploadFile } = useUploadFile();
+  const { control, handleSubmit, reset, watch } = useForm({
     defaultValues: {
       title: '',
       image: '',
@@ -36,14 +36,6 @@ const Certificate = ({ data }) => {
     }
   });
   const [showEdit, setShowEdit] = useState('');
-  const onSubmitCreate = async (values) => {
-    await mutateCreate({ ...values, candidateId: data?._id });
-  };
-
-  const onSubmitUpdate = async (values) => {
-    const { __v, candidate, ...rest } = values;
-    await mutateUpdate({ ...rest, candidateId: candidate });
-  };
 
   return (
     <Card>
@@ -76,26 +68,29 @@ const Certificate = ({ data }) => {
                     {certificate.title}
                   </Typography>
                   {/* {showEdit === certificate._id && ( */}
-                  <Tooltip title="Ảnh đính kèm">
-                    <IconButton size="small">
-                      <Image fontSize="small" />
-                    </IconButton>
-                  </Tooltip>
+                  <ButtonViewImage
+                    image={certificate.image}
+                    onClick={() => setShowEdit('')}
+                    maxWidth="sm"
+                    title="Đính kèm"
+                  />
                   <ButtonEdit
+                    isLoading={isLoadingUpdate}
                     fullWidth
                     maxWidth="sm"
                     title="Chứng chỉ"
-                    onClick={() => {
-                      setShowEdit('');
+                    onClick={async () => {
                       const certificate = certificates.find((item) => item._id === showEdit);
                       if (certificate) {
-                        reset(certificate);
+                        const { __v, candidate, ...rest } = certificate;
+                        reset({ ...rest, candidateId: candidate });
                       }
+                      setShowEdit('');
                     }}
                     sx={{
                       display: showEdit === certificate._id ? 'inline-flex' : 'none'
                     }}
-                    onSubmit={handleSubmit(onSubmitUpdate)}
+                    onSubmit={handleSubmit(mutateUpdate)}
                   >
                     <CertificateEditForm control={control} />
                   </ButtonEdit>
@@ -117,11 +112,13 @@ const Certificate = ({ data }) => {
             </TimelineItem>
           ))}
           <ButtonEdit
+            isLoading={isLoadingCreate}
             onClick={() => {
               reset({
                 title: '',
                 image: '',
-                description: ''
+                description: '',
+                candidateId: data?._id
               });
             }}
             button={
@@ -160,7 +157,7 @@ const Certificate = ({ data }) => {
             fullWidth
             maxWidth="sm"
             title="Chứng chỉ"
-            onSubmit={handleSubmit(onSubmitCreate)}
+            onSubmit={handleSubmit(mutateCreate)}
           >
             <CertificateEditForm control={control} />
           </ButtonEdit>

@@ -27,7 +27,6 @@ const useAuth = () => {
       { email, password, role },
       {
         onSuccess: (data) => {
-          console.log(data);
           navigate('/dang-nhap');
         },
         onError: (error) => {

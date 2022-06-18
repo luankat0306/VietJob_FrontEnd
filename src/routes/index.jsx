@@ -87,7 +87,7 @@ const routes = [
   },
   {
     path: 'nha-tuyen-dung',
-    element: <MainLayout />,
+    element: <MainLayout hasSearchBar={false} />,
     children: [
       {
         path: 'danh-sach',
@@ -107,7 +107,7 @@ const routes = [
       },
       {
         path: 'kiem-duyet-ho-so',
-        element: <KiemDuyetHoSoPage/>
+        element: <KiemDuyetHoSoPage />
       }
     ]
   }

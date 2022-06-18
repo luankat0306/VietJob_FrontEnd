@@ -85,11 +85,9 @@ const DialogMediaUpload = ({
               createdBy: email ?? ''
             }
           });
-          // console.log(resUpload);
           return resUpload;
         })
       );
-      // console.log(result);
       if (result.length > 0) {
         setFiles([]);
         enqueueSnackbar('Upload thành công', { variant: 'success' });
@@ -99,10 +97,8 @@ const DialogMediaUpload = ({
       }
       setIsSubmitting(false);
     } else {
-      // console.log(listImage, listChecked);
       onSubmit && onSubmit(listChecked);
     }
-    // console.log(files);
   };
   const handleLoadMore = async () => {
     setListImage(

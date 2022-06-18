@@ -31,6 +31,21 @@ const UploadFile = ({ name, files, onChange, ...rest }) => {
       onupdatefiles={(fileItems) => onChange(fileItems.map((fileItem) => fileItem.file))}
       name={name}
       labelIdle='Drag & Drop your files or <span class="filepond--label-action">Browse</span>'
+      server={{
+        // load: (src, load) => {
+        //   load(src);
+        //   // load file here and return file object to load
+        //   fetch(src)
+        //     .then((res) => res.blob())
+        //     .then(load);
+        // },
+        fetch: (url, load, error) => {
+          fetch(url)
+            .then((res) => res.blob())
+            .then(load)
+            .catch(error);
+        }
+      }}
     />
   );
 };

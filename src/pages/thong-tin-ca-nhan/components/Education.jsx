@@ -25,8 +25,8 @@ import ButtonEdit from './ButtonEdit';
 
 const Education = ({ data }) => {
   const { data: educations = [] } = useEducations({ candidateId: data?._id });
-  const { mutateAsync: mutateCreate } = useMutationCreateEducation();
-  const { mutateAsync: mutateUpdate } = useMutationUpdateEducation();
+  const { mutateAsync: mutateCreate, isLoading: isLoadingCreate } = useMutationCreateEducation();
+  const { mutateAsync: mutateUpdate, isLoading: isLoadingUpdate } = useMutationUpdateEducation();
   const { control, handleSubmit, reset, watch } = useForm({
     defaultValues: {
       title: '',
@@ -44,21 +44,6 @@ const Education = ({ data }) => {
     const { __v, candidate, ...rest } = values;
     await mutateUpdate({ ...rest, candidateId: candidate });
   };
-
-  useEffect(() => {
-    const education = educations.find((item) => item._id === showEdit);
-    if (education) {
-      reset(education);
-    } else {
-      console.log('reset');
-      reset({
-        title: '',
-        dateStart: null,
-        dateEnd: null,
-        description: ''
-      });
-    }
-  }, [showEdit]);
 
   return (
     <Card>
@@ -92,10 +77,15 @@ const Education = ({ data }) => {
                   </Typography>
                   {/* {showEdit === education._id && ( */}
                   <ButtonEdit
+                    isLoading={isLoadingUpdate}
                     fullWidth
                     maxWidth="sm"
                     title="Học vấn"
                     onClick={() => {
+                      const education = educations.find((item) => item._id === showEdit);
+                      if (education) {
+                        reset(education);
+                      }
                       setShowEdit('');
                     }}
                     sx={{
@@ -122,6 +112,15 @@ const Education = ({ data }) => {
             </TimelineItem>
           ))}
           <ButtonEdit
+            isLoading={isLoadingCreate}
+            onClick={() => {
+              reset({
+                title: '',
+                dateStart: null,
+                dateEnd: null,
+                description: ''
+              });
+            }}
             button={
               <TimelineItem
                 sx={{
@@ -178,13 +177,13 @@ const EducationEditForm = ({ control, watch }) => {
         control={control}
         placholder="Đại học Công nghệ TP.Hồ Chí Minh - HUTECH"
       />
-      <CheckboxField label="Đến nay" name="isCurrent" />
       <DatePickerField
         label="Ngày bắt đầu"
         name="dateStart"
         control={control}
         placeholder="01/01/2020"
       />
+      <CheckboxField control={control} label="Đến nay" name="isCurrent" />
 
       {!isCurrent && (
         <DatePickerField

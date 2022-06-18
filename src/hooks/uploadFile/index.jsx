@@ -18,19 +18,29 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const storage = getStorage(app);
-const storageRef = ref(storage);
+export const storageRef = ref(storage);
 
 const useUploadFile = () => {
   const info = useSelector(selectUserInfo);
 
   const uploadFile = async (file) => {
-    const newRef = ref(storageRef, info?.email + '/' + new Date().getTime() + '/' + file.name);
-    const uploadTask = await uploadBytes(newRef, file);
+    const idRef = ref(storageRef, info?._id);
+    const fileRef = ref(idRef, `${new Date().getTime()}_${file.name}`);
+    const uploadTask = await uploadBytes(fileRef, file);
     const url = await getDownloadURL(uploadTask.ref);
     return url;
   };
+
+  const downloadFile = async (url) => {
+    const patch = url?.split('/');
+    const fileName = patch[patch.length - 1]?.split('%2F')[1]?.split('?')[0];
+    const blob = await fetch(url).then((res) => res.blob());
+    const file = new File([blob], 'fileA');
+    return { blob, file };
+  };
   return {
-    uploadFile
+    uploadFile,
+    downloadFile
   };
 };
 

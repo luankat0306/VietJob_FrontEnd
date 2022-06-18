@@ -36,7 +36,6 @@ axiosClient.interceptors.response.use(
     return response.data?.data;
   },
   (error) => {
-    // console.log(JSON.stringify(error));
     // if (error.response.status === 500) {
     // axios.get('/account/me').catch(e => {
     //   localStorage.removeItem('jwt');

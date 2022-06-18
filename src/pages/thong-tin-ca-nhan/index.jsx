@@ -23,6 +23,7 @@ import InfoUser from './components/InfoUser';
 import Education from './components/Education';
 import Experience from './components/Eperience';
 import Certificate from './components/Certificate';
+import Skill from './components/Skill';
 
 const ThongTinCaNhanPage = () => {
   const info = useSelector(selectUserInfo);
@@ -45,7 +46,6 @@ const ThongTinCaNhanPage = () => {
 
   const onSubmitUserInfo = async (data) => {
     const { _id, __v, user, province, ...rest } = data;
-    console.log(user);
     const newUser = {
       name: user?.name,
       phoneNumber: user?.phoneNumber,
@@ -71,37 +71,7 @@ const ThongTinCaNhanPage = () => {
 
           <Certificate data={infoUser} />
           <Box mt={2} />
-          <Card>
-            <CardContent>
-              <Stack direction="row" spacing={2} alignItems="center">
-                <Typography my={2} component="div" variant="h6" fontWeight={700}>
-                  Kỹ năng <ButtonEdit title="Kỹ năng" />
-                </Typography>
-                <Card
-                  variant="outlined"
-                  sx={{
-                    p: 1,
-                    bgcolor: grey[200],
-                    color: grey[600],
-                    fontWeight: 700
-                  }}
-                >
-                  React
-                </Card>
-                <Card
-                  variant="outlined"
-                  sx={{
-                    p: 1,
-                    bgcolor: grey[200],
-                    color: grey[600],
-                    fontWeight: 700
-                  }}
-                >
-                  NodeJs
-                </Card>
-              </Stack>
-            </CardContent>
-          </Card>
+          <Skill data={infoUser} />
           {/* </Typography> */}
         </Grid>
       </Grid>

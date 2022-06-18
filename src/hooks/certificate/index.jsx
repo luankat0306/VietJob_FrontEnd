@@ -19,37 +19,48 @@ export const useCertificate = (id) => {
 export const useMutationCreateCertificate = () => {
   const queryClient = useQueryClient();
   const { uploadFile } = useUploadFile();
-  return useMutation(certificateApi.createCertificate, {
-    onMutate: async (values) => {
-      const { image } = values;
 
-      return {
-        ...values,
-        image: image ? await uploadFile(image) : ''
-      };
+  return useMutation(
+    async (data) => {
+      const file = await uploadFile(data.image[0]);
+
+      certificateApi.createCertificate({
+        ...data,
+        image: file
+      });
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries(key);
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(key);
+      }
     }
-  });
+  );
 };
 
 export const useMutationUpdateCertificate = () => {
   const queryClient = useQueryClient();
   const { uploadFile } = useUploadFile();
-  return useMutation(certificateApi.updateCertificate, {
-    onMutate: async (values) => {
-      const { image } = values;
+  return useMutation(
+    async (data) => {
+      let { __v, image, ...rest } = data;
+      image = data.image[0];
       console.log(image);
-      return {
-        ...values,
-        image: image ? await uploadFile(image[0]) : ''
-      };
+      console.log(image instanceof File);
+
+      if (image instanceof File) {
+        const file = await uploadFile(data.image[0]);
+        certificateApi.updateCertificate({ ...rest, image: file });
+        return;
+      }
+
+      certificateApi.updateCertificate({ ...rest });
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries(key);
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(key);
+      }
     }
-  });
+  );
 };
 
 export const useMutationDeleteCertificate = () => {

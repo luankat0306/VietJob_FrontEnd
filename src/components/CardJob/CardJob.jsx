@@ -1,4 +1,4 @@
-import { AccessTime, BusinessCenterRounded } from '@mui/icons-material';
+import { AccessTime, BusinessCenterRounded, Timelapse } from '@mui/icons-material';
 import {
   Avatar,
   Box,
@@ -11,15 +11,19 @@ import {
   Tooltip,
   Typography
 } from '@mui/material';
-import * as moment from 'moment';
-import 'moment/locale/vi';
+// import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 import 'swiper/css';
 import 'swiper/css/grid';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { primary } from '../../theme/themeColors';
+import moment from 'moment/min/moment-with-locales';
+import { status, statusColor } from '@/utils/status';
+
 const CardJob = ({ item }) => {
+  const fromNow = 'Hạn nộp: ' + moment(item.deadline).format('DD/MM/YYYY');
+
   const navigate = useNavigate();
   return (
     <Card
@@ -37,7 +41,11 @@ const CardJob = ({ item }) => {
         <Stack>
           <ListItem disablePadding>
             <ListItemAvatar>
-              <Avatar sx={{ bgcolor: primary[500] }}>
+              <Avatar
+                sx={{ bgcolor: 'white', p: 0.5, width: 56, height: 56 }}
+                src={item.avatar}
+                variant="rounded"
+              >
                 <BusinessCenterRounded />
               </Avatar>
             </ListItemAvatar>
@@ -156,15 +164,26 @@ const CardJob = ({ item }) => {
             spacing={1}
             justifyContent="flex-end"
           >
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center'
-              }}
-            >
-              <AccessTime color="primary" fontSize="16px" sx={{ mr: 1 }} />
-              <Typography variant="subtitle1">{moment(item.deadline).fromNow()}</Typography>
-            </Box>
+            {item?.status >= 0 ? (
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                <Typography color={statusColor(item.status)}>{status(item?.status)}</Typography>
+              </Box>
+            ) : (
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center'
+                }}
+              >
+                <AccessTime color="primary" fontSize="16px" sx={{ mr: 1 }} />
+                <Typography variant="subtitle1">{fromNow}</Typography>
+              </Box>
+            )}
             {/* <Box
               sx={{
                 display: 'flex',

@@ -16,7 +16,7 @@ import InputField from '@/components/Field/InputField';
 import FieldLayout from '@/components/FieldLayout';
 import { levels, salarys } from '@/utils/optionsData';
 import { Avatar, Button, Card, CardContent, Divider, Stack, Typography } from '@mui/material';
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import ButtonEdit from './ButtonEdit';
 import { formatDate } from '@/utils/format';
@@ -25,8 +25,6 @@ import { useProvince, useProvinces } from '@/hooks/province';
 const InfoUser = ({ data, onSubmit }) => {
   const { data: menuProvince } = useProvinces({});
   const { data: provinceData } = useProvince(data?.province);
-
-  console.log(menuProvince);
 
   const { control, reset, handleSubmit } = useForm();
 
@@ -53,7 +51,7 @@ const InfoUser = ({ data, onSubmit }) => {
     },
     {
       icon: EqualizerRounded,
-      title: 'Chức vụ:',
+      title: 'Cấp bậc:',
       content: data?.appliedPosition
     },
     {
@@ -75,8 +73,12 @@ const InfoUser = ({ data, onSubmit }) => {
     <Card sx={{ bgcolor: primary[50] }}>
       <CardContent>
         <Stack alignItems="start" direction="row" spacing={2}>
-          <Avatar sx={{ mt: 1, bgcolor: '#fff', width: 56, height: 56 }} variant="rounded">
-            {data?.user?.avatar}
+          <Avatar
+            src={data?.user?.avatar}
+            sx={{ mt: 1, width: 56, height: 56, bgcolor: '#fff', color: primary['main'] }}
+            variant="rounded"
+          >
+            {data?.user?.name[0]}
           </Avatar>
           <Stack
             sx={{
@@ -105,7 +107,7 @@ const InfoUser = ({ data, onSubmit }) => {
                 options={levels}
                 name="appliedPosition"
                 control={control}
-                label="Chức vụ"
+                label="Cấp bậc"
               />
               <AutocompleteField
                 options={salarys}
@@ -128,7 +130,7 @@ const InfoUser = ({ data, onSubmit }) => {
         <Divider sx={{ my: 2, borderColor: primary[100] }} />
         {info.map(({ icon: Icon, title, content }) => {
           return (
-            <>
+            <Fragment key={title}>
               <Stack direction="row" justifyContent="space-between" alignItems="center">
                 <LabelWithIcon>
                   <Icon color="primary" sx={{ mr: 1 }} />
@@ -142,7 +144,7 @@ const InfoUser = ({ data, onSubmit }) => {
                 </Typography>
               </Stack>
               <Divider sx={{ my: 2, borderColor: primary[100] }} />
-            </>
+            </Fragment>
           );
         })}
         {/* <Box mt={4} display="flex" justifyContent="center"> */}

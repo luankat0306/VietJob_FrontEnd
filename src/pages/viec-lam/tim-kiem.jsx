@@ -45,7 +45,6 @@ function TimKiemViecLamPage() {
       title
     })
   });
-  console.log(title);
   const { data: jobs, isLoading } = useJobs({
     ...filter,
     ...removeEmpty({
@@ -86,7 +85,8 @@ function TimKiemViecLamPage() {
                         formality: job.formality,
                         wage: job.wage,
                         experience: job.experience,
-                        deadline: job.deadline
+                        deadline: job.deadline,
+                        avatar: job?.employer?.user?.avatar
                       }}
                     />
                   </Grid>

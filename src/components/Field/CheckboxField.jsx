@@ -1,15 +1,20 @@
-import { Checkbox } from '@mui/material';
+import { Checkbox, FormControlLabel } from '@mui/material';
 import { Controller } from 'react-hook-form';
 
-function CheckboxField({ rules, control, name, ...rest }) {
+function CheckboxField({ rules, control, name, label, ...rest }) {
   return (
     <Controller
       render={({ field }) => (
-        <Checkbox
-          onChange={(e) => field.onChange(e.target.checked)}
-          checked={field.value}
-          siza="small"
-          label={rest.label}
+        <FormControlLabel
+          label={label}
+          control={
+            <Checkbox
+              onChange={(e) => field.onChange(e.target.checked)}
+              checked={field.value}
+              siza="small"
+              {...rest}
+            />
+          }
         />
       )}
       name={name}

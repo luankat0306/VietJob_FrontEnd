@@ -12,7 +12,7 @@ function InputField({ rules, control, name, ...rest }) {
           fullWidth
           error={control?.getFieldState(name)?.isTouched && control?.getFieldState(name)?.error}
           helperText={control?.getFieldState(name)?.error?.message}
-          siza="small"
+          size="small"
         />
       )}
       name={name}

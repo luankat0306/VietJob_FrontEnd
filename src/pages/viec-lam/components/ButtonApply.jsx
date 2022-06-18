@@ -1,27 +1,31 @@
+import { selectIsLogin } from '@/redux/authSlice';
 import { EditRounded } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { IconButton } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import * as React from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-export default function ButtonEdit({
+export default function ButtonApply({
   button: NewButton,
-  title,
   onSubmit,
-  children,
-  sx,
   onClick,
-  fontSize,
   isLoading = false,
   ...rest
 }) {
+  const isLogin = useSelector(selectIsLogin);
   const [open, setOpen] = React.useState(false);
-
+  const navigate = useNavigate();
   const handleClickOpen = () => {
+    if (!isLogin) {
+      navigate('/dang-nhap');
+      return;
+    }
     onClick && onClick();
     setOpen(true);
   };
@@ -42,20 +46,23 @@ export default function ButtonEdit({
       {NewButton ? (
         Component
       ) : (
-        <IconButton size="small" onClick={handleClickOpen} sx={sx}>
-          <EditRounded
-            sx={{
-              fontSize: fontSize
-            }}
-            fontSize="small"
-          />
-        </IconButton>
+        <Button
+          onClick={handleClickOpen}
+          fullWidth
+          size="large"
+          variant="contained"
+          color="primary"
+        >
+          Ứng tuyển
+        </Button>
       )}
 
-      <Dialog fullWidth maxWidth="md" open={open} onClose={handleClose} {...rest}>
-        <DialogTitle>{title}</DialogTitle>
+      <Dialog fullWidth maxWidth="sm" open={open} onClose={handleClose} {...rest}>
+        <DialogTitle>Xác nhận</DialogTitle>
         <DialogContent>
-          {children}
+          <Typography variant="body2" color="textPrimary">
+            Bạn có chắc chắn muốn ứng tuyển với công việc này?
+          </Typography>
           {/* <TextareaAutosize style={{ width: '100%', minHeight: '300px' }} /> */}
         </DialogContent>
         <DialogActions>
@@ -69,7 +76,7 @@ export default function ButtonEdit({
               handleClose();
             }}
           >
-            Lưu
+            Xác nhận
           </LoadingButton>
         </DialogActions>
       </Dialog>

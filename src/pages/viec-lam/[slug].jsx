@@ -1,5 +1,8 @@
 import LabelWithIcon from '@/components/Base/LabelWithIcon';
 import { CardJob } from '@/components/CardJob';
+import { useMutationCreateApplication } from '@/hooks/application';
+import { useCandidateByUserId } from '@/hooks/candidate';
+import { selectUserInfo } from '@/redux/authSlice';
 import { grey, primary } from '@/theme/themeColors';
 import { formatDate } from '@/utils/format';
 import {
@@ -22,33 +25,22 @@ import {
   Stack,
   Typography
 } from '@mui/material';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { useJob } from '../../hooks/job';
+import { useJob, useJobs } from '../../hooks/job';
+import ButtonApply from './components/ButtonApply';
 
 const ChiTietViecLamPage = () => {
   const { slug } = useParams();
-
-  const mockJobs = [
-    {
-      name: 'Tài chính / Ngân hàng',
-      enterpriseName: 'Sacombank'
-    },
-    {
-      name: 'IT phần mềm',
-      enterpriseName: 'Fpt Software'
-    },
-    {
-      name: 'Kinh doanh / bán hàng',
-      enterpriseName: 'Vinamilk'
-    },
-    {
-      name: 'Bất động sản',
-      enterpriseName: 'VinGroup'
-    }
-  ];
-
+  const info = useSelector(selectUserInfo);
+  const { data: candidate } = useCandidateByUserId(info?._id);
   const { data: job } = useJob(slug);
-  const info = [
+  const { mutateAsync: mutateApply, isLoading: isLoadingApply } = useMutationCreateApplication({
+    alert: true,
+    messageSuccess: 'Đã ứng tuyển thành công',
+    messageError: 'Đã có lỗi xảy ra, vui lòng thử lại'
+  });
+  const infoEmplyer = [
     {
       icon: MoreTimeRounded,
       title: 'Ngày đăng:',
@@ -66,7 +58,7 @@ const ChiTietViecLamPage = () => {
     // },
     {
       icon: EqualizerRounded,
-      title: 'Chức vụ:',
+      title: 'Cấp bậc:',
       content: job?.level
     },
     {
@@ -85,6 +77,17 @@ const ChiTietViecLamPage = () => {
       content: job?.quantity
     }
   ];
+  const { data: jobs, isLoading } = useJobs({
+    page: 6,
+    limit: 6
+  });
+
+  const onSubmit = async (data) => {
+    await mutateApply({
+      candidateId: candidate?._id,
+      postId: job?._id
+    });
+  };
   return (
     <Container fixed sx={{ mt: 4, mb: 4 }}>
       <Grid container spacing={4}>
@@ -173,9 +176,20 @@ const ChiTietViecLamPage = () => {
           <Card sx={{ mt: 2 }} variant="outlined">
             <CardContent sx={{ backgroundColor: '#f3f6f9' }}>
               <Grid container spacing={2}>
-                {mockJobs.map((job, index) => (
+                {jobs?.data?.map((job, index) => (
                   <Grid key={index} item xs={12} md={6}>
-                    <CardJob item={job} />
+                    <CardJob
+                      item={{
+                        id: job._id,
+                        name: job.title,
+                        enterpriseName: job?.employer?.user?.name,
+                        formality: job.formality,
+                        wage: job.wage,
+                        experience: job.experience,
+                        deadline: job.deadline,
+                        avatar: job?.employer?.user?.avatar
+                      }}
+                    />
                   </Grid>
                 ))}
               </Grid>
@@ -187,7 +201,11 @@ const ChiTietViecLamPage = () => {
           <Card variant="outlined" sx={{ bgcolor: primary[50] }}>
             <CardContent>
               <Stack direction="row" spacing={2}>
-                <Avatar sx={{ mt: 1, bgcolor: '#fff', width: 56, height: 56 }} variant="rounded">
+                <Avatar
+                  sx={{ mt: 1, bgcolor: '#fff', width: 56, height: 56 }}
+                  src={job?.employer?.user?.avatar}
+                  variant="rounded"
+                >
                   N
                 </Avatar>
                 <Stack>
@@ -200,7 +218,7 @@ const ChiTietViecLamPage = () => {
                 </Stack>
               </Stack>
               <Divider sx={{ my: 2, borderColor: primary[100] }} />
-              {info.map(({ icon: Icon, title, content }) => {
+              {infoEmplyer.map(({ icon: Icon, title, content }) => {
                 return (
                   <>
                     <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -220,10 +238,12 @@ const ChiTietViecLamPage = () => {
                 );
               })}
               {/* <Box mt={4} display="flex" justifyContent="center"> */}
-              <Button fullWidth size="large" variant="contained" color="primary">
+              {/* <Button fullWidth size="large" variant="contained" color="primary">
                 Ứng tuyển
-              </Button>
+              </Button> */}
               {/* </Box> */}
+
+              <ButtonApply isLoading={isLoadingApply} onSubmit={onSubmit} />
             </CardContent>
           </Card>
         </Grid>
