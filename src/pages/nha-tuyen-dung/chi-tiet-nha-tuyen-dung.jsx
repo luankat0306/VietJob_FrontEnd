@@ -29,7 +29,7 @@ import JobListingBox from '@/components/JobListingBox/JobListingBox';
 
 function ChiTietNhaTuyenDungPage(){
     return(
-        <Paper sx={{bgcolor:'#e5e5e5'}}>
+        <Paper sx={{bgcolor:"whitesmoke",p:5}}>
             <Container>
                 <Box sx={{mb:3}}>
                     <MuiGrid container>

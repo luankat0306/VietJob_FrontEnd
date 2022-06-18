@@ -17,6 +17,7 @@ import ChiTietViecLamPage from '@/pages/viec-lam/[slug]';
 import { useSelector } from 'react-redux';
 import { selectIsLogin, selectUserInfo } from '@/redux/authSlice';
 import { Navigate } from 'react-router-dom';
+import ThongKePage from '@/pages/nha-tuyen-dung/thong-ke';
 
 const AuthCandidate = ({ children }) => {
   const info = useSelector(selectUserInfo);
@@ -108,6 +109,10 @@ const routes = [
       {
         path: 'kiem-duyet-ho-so',
         element: <KiemDuyetHoSoPage />
+      },
+      {
+        path: 'thong-ke',
+        element: <ThongKePage />
       }
     ]
   }
