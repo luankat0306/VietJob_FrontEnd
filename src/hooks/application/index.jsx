@@ -5,9 +5,7 @@ import { useSnackbar } from 'notistack';
 
 const key = 'application';
 export const useApplications = (params) => {
-  return useQuery([key, params], applicationApi.getAllApplications, {
-    enabled: !isEmpty(params)
-  });
+  return useQuery([key, params], applicationApi.getAllApplications);
 };
 
 export const useApplicationsByPostId = (params) => {

@@ -10,12 +10,17 @@ const useAuth = () => {
   const { mutate: mutateLogout, error: errorLogout } = useMutation(authApi.logout);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const login = async ({ email, password }) => {
+  const login = async ({ email, password, role }) => {
     mutateLogin(
       { email, password },
       {
         onSuccess: (res) => {
           dispatch(authActions.login(res));
+          if (role === 3) {
+            navigate('/admin/thong-ke');
+            return;
+          }
+
           navigate('/');
         }
       }

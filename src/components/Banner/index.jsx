@@ -1,4 +1,8 @@
-import { Box, Button, Card, Grid as MuiGrid, Stack, TextField, Typography } from '@mui/material';
+import { useCareers } from '@/hooks/career';
+import { useProvinces } from '@/hooks/province';
+import { removeEmpty } from '@/utils/format';
+import { Box, Button, Card, Grid as MuiGrid, Stack, Typography } from '@mui/material';
+import queryString from 'query-string';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import 'swiper/css';
@@ -10,10 +14,6 @@ import banner from '../../assets/banner.svg';
 import { grey } from '../../theme/themeColors';
 import AutocompleteField from '../Field/AutocompleteField';
 import InputField from '../Field/InputField';
-import queryString from 'query-string';
-import { removeEmpty } from '@/utils/format';
-import { useProvinces } from '@/hooks/province';
-import { useCareers } from '@/hooks/career';
 const Banner = () => {
   const { data: menuProvince } = useProvinces({});
   const { data: menuCareer } = useCareers({});
@@ -54,7 +54,6 @@ const Banner = () => {
               invidunt ut labore et dolore magna aliquyam erat sed diam voluptua.
             </Typography>
             <Box mt={4} />
-
             <Card sx={{ p: 1 }}>
               <Stack direction="row" spacing={1} alignItems="stretch" flexGrow={1}>
                 <InputField

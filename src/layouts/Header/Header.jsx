@@ -90,9 +90,8 @@ const Header = (props) => {
                 <Avatar
                   sx={{
                     border: '1px solid' + primary[200],
-                    p: '8px',
-                    width: 56,
-                    height: 56
+                    width: 40,
+                    height: 40
                   }}
                   alt={info?.name}
                   src={info?.avatar}

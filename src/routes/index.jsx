@@ -19,11 +19,17 @@ import { useSelector } from 'react-redux';
 import { selectIsLogin, selectUserInfo } from '@/redux/authSlice';
 import { Navigate } from 'react-router-dom';
 import ThongKePage from '@/pages/nha-tuyen-dung/thong-ke';
+import DangNhapAdminPage from '@/pages/admin/dang-nhap';
+import AdminLayout from '@/layouts/AdminLayout';
+import ThongKeAdminPage from '@/pages/admin/thong-ke';
+import QuanLyTinhThanhPage from '@/pages/admin/quan-ly-tinh-thanh';
+import QuanLyNganhNghePage from '@/pages/admin/quan-ly-nganh-nghe';
+import QuanLyKyNangPage from '@/pages/admin/quan-ly-ky-nang';
 
 const AuthCandidate = ({ children }) => {
   const info = useSelector(selectUserInfo);
   const isLogin = useSelector(selectIsLogin);
-  if (info?.role === null && !isLogin) return <Navigate to="/dang-nhap" replace />;
+  if (!info?.role === 0 && !isLogin) return <Navigate to="/dang-nhap" replace />;
   return children;
 };
 const routes = [
@@ -37,8 +43,35 @@ const routes = [
         element: <DangNhapPage />
       },
       {
+        path: 'dang-nhap-admin',
+        element: <DangNhapAdminPage />
+      },
+      {
         path: 'dang-ky',
         element: <DangNhapPage />
+      }
+    ]
+  },
+  {
+    path: '/admin',
+    element: <AdminLayout />,
+    children: [
+      { index: true, element: <Navigate to="/admin/thong-ke" /> },
+      {
+        path: 'thong-ke',
+        element: <ThongKeAdminPage />
+      },
+      {
+        path: 'quan-ly-tinh-thanh',
+        element: <QuanLyTinhThanhPage />
+      },
+      {
+        path: 'quan-ly-nganh-nghe',
+        element: <QuanLyNganhNghePage />
+      },
+      {
+        path: 'quan-ly-ky-nang',
+        element: <QuanLyKyNangPage />
       }
     ]
   },
