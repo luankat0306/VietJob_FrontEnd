@@ -20,3 +20,21 @@ export const salarys = [
   'Trên 30 triệu',
   'Thoả thuận'
 ];
+
+export const experiences = [
+  'Chưa có kinh nghiệm',
+  'Dưới 1 năm',
+  '1 năm',
+  '2 năm',
+  '3 năm',
+  '4 năm',
+  '5 năm',
+  'Trên 5 năm'
+];
+
+export const formalities = [
+  'Toàn thời gian',
+  'Bán thời gian',
+  'Thực tập',
+  'Remote - Làm việc từ xa'
+];

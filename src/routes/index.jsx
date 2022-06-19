@@ -74,6 +74,10 @@ const routes = [
         element: <ThongTinCaNhanPage />
       },
       {
+        path: 'thong-tin-ca-nhan/:id',
+        element: <ThongTinCaNhanPage />
+      },
+      {
         path: 'viec-lam-da-ung-tuyen',
         element: <ViecLamDaUngTuyenPage />
       },
@@ -112,7 +116,7 @@ const routes = [
         element: <QuanLyBaiDangPage />
       },
       {
-        path: 'kiem-duyet-ho-so',
+        path: 'kiem-duyet-ho-so/:id',
         element: <KiemDuyetHoSoPage />
       },
       {

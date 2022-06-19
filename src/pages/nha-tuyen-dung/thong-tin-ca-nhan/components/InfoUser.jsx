@@ -6,7 +6,9 @@ import {
   LocalAtmRounded,
   MailRounded,
   PhoneRounded,
-  PlaceRounded
+  PlaceRounded,
+  Link,
+  Group
 } from '@mui/icons-material';
 
 import LabelWithIcon from '@/components/Base/LabelWithIcon';
@@ -23,9 +25,6 @@ import { formatDate } from '@/utils/format';
 import { useProvince, useProvinces } from '@/hooks/province';
 
 const InfoUser = ({ data, onSubmit }) => {
-  const { data: menuProvince } = useProvinces({});
-  const { data: provinceData } = useProvince(data?.province);
-
   const { control, reset, handleSubmit } = useForm();
 
   const info = [
@@ -43,6 +42,16 @@ const InfoUser = ({ data, onSubmit }) => {
       icon: CalendarViewDay,
       title: 'Ngày sinh:',
       content: formatDate(data?.user?.birthDay)
+    },
+    {
+      icon: Link,
+      title: 'Website',
+      content: data?.website
+    },
+    {
+      icon: Group,
+      title: 'Quy mô',
+      content: data?.scale
     }
     // {
     //   icon: PlaceRounded,
@@ -62,11 +71,7 @@ const InfoUser = ({ data, onSubmit }) => {
   ];
   useEffect(() => {
     reset({
-      ...data,
-      province: {
-        value: provinceData?._id,
-        label: provinceData?.name
-      }
+      ...data
     });
   }, [data]);
   return (
@@ -102,28 +107,8 @@ const InfoUser = ({ data, onSubmit }) => {
               <InputField name="user.name" control={control} label="Tên" />
               <InputField name="user.email" control={control} label="Email" />
               <InputField name="user.phoneNumber" control={control} label="Số điện thoại" />
-              <DatePickerField name="user.birthDay" control={control} label="Ngày sinh" />
-              <AutocompleteField
-                options={levels}
-                name="appliedPosition"
-                control={control}
-                label="Cấp bậc"
-              />
-              <AutocompleteField
-                options={salarys}
-                name="wage"
-                control={control}
-                label="Mức lương"
-              />
-              <AutocompleteField
-                options={menuProvince?.map((item) => ({
-                  value: item?._id,
-                  label: item.name
-                }))}
-                name="province"
-                control={control}
-                label="Tỉnh/Thành phố"
-              />
+              <InputField name="website" control={control} label="Website" />
+              <InputField name="scale" control={control} label="Quy mô" />
             </FieldLayout>
           </ButtonEdit>
         </Stack>

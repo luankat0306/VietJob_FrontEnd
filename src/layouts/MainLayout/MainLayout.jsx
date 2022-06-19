@@ -53,7 +53,7 @@ export const MainLayout = (props) => {
     window.scrollTo(0, 0);
   }, []);
   return (
-    <>
+    <Box height="100%" minHeight="100vh">
       <Header isLogin={isLogin} />
       {hasSearchBar && <SearchBar />}
       <Outlet />
@@ -62,7 +62,7 @@ export const MainLayout = (props) => {
           <KeyboardArrowUp />
         </Fab>
       </ScrollTop>
-    </>
+    </Box>
   );
 };
 

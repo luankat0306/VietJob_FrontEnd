@@ -16,7 +16,7 @@ import {
   TextField,
   Typography
 } from '@mui/material';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useJobs } from '../../hooks/job';
 
@@ -53,6 +53,9 @@ function TimKiemViecLamPage() {
       title
     })
   });
+  useEffect(() => {
+    setFilter((prev) => ({ ...prev, page: 1 }));
+  }, [searchParams]);
   return (
     <Container sx={{ mt: 2 }}>
       <Breadcrumbs separator={<NavigateNext fontSize="small" />} aria-label="breadcrumb">

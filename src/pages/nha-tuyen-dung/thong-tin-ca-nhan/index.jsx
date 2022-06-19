@@ -17,7 +17,7 @@ const ThongTinCaNhanPage = () => {
   const onSubmitDescription = async (data) => {
     await mutateAsync({
       _id: employer?._id,
-      moreInfo: data.moreInfo
+      description: data.description
     });
   };
   const infoUser = {
@@ -48,7 +48,7 @@ const ThongTinCaNhanPage = () => {
         <Grid item xs={12} md={8} lg={8}>
           <Description data={infoUser} onSubmit={onSubmitDescription} />
           <Box mt={2} />
-          <Education data={infoUser} />
+          {/* <Education data={infoUser} />
           <Box mt={2} />
 
           <Experience data={infoUser} />
@@ -56,7 +56,7 @@ const ThongTinCaNhanPage = () => {
 
           <Certificate data={infoUser} />
           <Box mt={2} />
-          <Skill data={infoUser} />
+          <Skill data={infoUser} /> */}
           {/* </Typography> */}
         </Grid>
       </Grid>

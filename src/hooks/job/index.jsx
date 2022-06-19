@@ -1,5 +1,6 @@
 import { isEmpty } from '@/utils/verify';
-import { useMutation, useQuery } from 'react-query';
+import { useSnackbar } from 'notistack';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import jobApi from '../../api/jobApi';
 
 const key = 'jobs';
@@ -16,13 +17,49 @@ export const useJob = (id) => {
 };
 
 export const useMutationCreateJob = () => {
-  return useMutation(jobApi.createJob);
+  const queryClient = useQueryClient();
+
+  const { enqueueSnackbar } = useSnackbar();
+
+  return useMutation(jobApi.createJob, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(key);
+      enqueueSnackbar('Đăng tin tuyển dụng thành công', { variant: 'success' });
+    },
+    onError: (error) => {
+      console.log(error);
+      enqueueSnackbar(error?.message || 'Đăng tin tuyển dụng thất bại', { variant: 'error' });
+    }
+  });
 };
 
 export const useMutationUpdateJob = () => {
-  return useMutation(jobApi.updateJob);
+  const queryClient = useQueryClient();
+
+  const { enqueueSnackbar } = useSnackbar();
+  return useMutation(jobApi.updateJob, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(key);
+      enqueueSnackbar('Cập nhật tin tuyển dụng thành công', { variant: 'success' });
+    },
+    onError: (error) => {
+      console.log(error);
+      enqueueSnackbar(error?.message || 'Cập nhật tin tuyển dụng thất bại', { variant: 'error' });
+    }
+  });
 };
 
 export const useMutationDeleteJob = () => {
-  return useMutation(jobApi.deleteJob);
+  const queryClient = useQueryClient();
+  const { enqueueSnackbar } = useSnackbar();
+  return useMutation(jobApi.deleteJob, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(key);
+      enqueueSnackbar('Xóa tin tuyển dụng thành công', { variant: 'success' });
+    },
+    onError: (error) => {
+      console.log(error);
+      enqueueSnackbar(error?.message || 'Xóa tin tuyển dụng thất bại', { variant: 'error' });
+    }
+  });
 };

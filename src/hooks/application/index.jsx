@@ -10,6 +10,12 @@ export const useApplications = (params) => {
   });
 };
 
+export const useApplicationsByPostId = (params) => {
+  return useQuery([key, params], applicationApi.getAllApplicationsByPostId, {
+    enabled: !isEmpty(params)
+  });
+};
+
 export const useApplication = (id) => {
   return useQuery([key, id], applicationApi.getApplicationById, {
     enabled: !isEmpty(id)
@@ -39,10 +45,15 @@ export const useMutationCreateApplication = ({ alert = false, messageSuccess, me
 
 export const useMutationUpdateApplication = () => {
   const queryClient = useQueryClient();
-
+  const { enqueueSnackbar } = useSnackbar();
   return useMutation(applicationApi.updateApplication, {
     onSuccess: () => {
       queryClient.invalidateQueries(key);
+      enqueueSnackbar('Duyệt thành công', { variant: 'success' });
+    },
+    onError: (error) => {
+      console.log(error);
+      enqueueSnackbar(error?.message || 'Duyệt thất bại', { variant: 'error' });
     }
   });
 };

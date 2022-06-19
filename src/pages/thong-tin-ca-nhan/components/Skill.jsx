@@ -13,9 +13,12 @@ import { Add } from '@mui/icons-material';
 import { Card, CardContent, Divider, Stack, Typography } from '@mui/material';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useParams } from 'react-router-dom';
 import ButtonEdit from './ButtonEdit';
 
 const SkillCandidate = ({ data }) => {
+  const { id } = useParams();
+
   const { data: skillCandidates = [] } = useSkillCandidates({ candidateId: data?._id });
   const { mutateAsync: mutateCreate, isLoading: isLoadingCreate } =
     useMutationCreateSkillCandidate();
@@ -55,7 +58,7 @@ const SkillCandidate = ({ data }) => {
                 color: grey[600],
                 fontWeight: 700
               }}
-              onMouseEnter={() => setShowEdit(skillCandidate._id)}
+              onMouseEnter={() => !id && setShowEdit(skillCandidate._id)}
               onMouseLeave={() => setShowEdit('')}
             >
               <Stack spacing={1} direction="row">
@@ -99,31 +102,33 @@ const SkillCandidate = ({ data }) => {
             </Card>
           ))}
 
-          <ButtonEdit
-            isLoading={isLoadingCreate}
-            onClick={() => {
-              reset({
-                description: ''
-              });
-            }}
-            button={
-              <Typography
-                fontWeight="bold"
-                mt={'2px'}
-                component="div"
-                variant="body2"
-                color="primary"
-              >
-                <Add sx={{ fontSize: '12px' }} /> Thêm kỹ năng
-              </Typography>
-            }
-            fullWidth
-            maxWidth="sm"
-            title="Kỹ năng"
-            onSubmit={handleSubmit(onSubmitCreate)}
-          >
-            <SkillCandidateEditForm watch={watch} control={control} />
-          </ButtonEdit>
+          {!id && (
+            <ButtonEdit
+              isLoading={isLoadingCreate}
+              onClick={() => {
+                reset({
+                  description: ''
+                });
+              }}
+              button={
+                <Typography
+                  fontWeight="bold"
+                  mt={'2px'}
+                  component="div"
+                  variant="body2"
+                  color="primary"
+                >
+                  <Add sx={{ fontSize: '12px' }} /> Thêm kỹ năng
+                </Typography>
+              }
+              fullWidth
+              maxWidth="sm"
+              title="Kỹ năng"
+              onSubmit={handleSubmit(onSubmitCreate)}
+            >
+              <SkillCandidateEditForm watch={watch} control={control} />
+            </ButtonEdit>
+          )}
         </Stack>
       </CardContent>
     </Card>

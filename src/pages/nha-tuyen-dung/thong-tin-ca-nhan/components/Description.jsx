@@ -19,14 +19,14 @@ const Description = ({ data, onSubmit }) => {
     <Card>
       <CardContent>
         <Typography component="div" variant="h6" fontWeight={700}>
-          Giới thiệu bản thân
-          <ButtonEdit title="Giới thiệu bản thân" onSubmit={handleSubmit(onSubmit)}>
+          Giới thiệu công ty
+          <ButtonEdit title="Giới thiệu công ty" onSubmit={handleSubmit(onSubmit)}>
             <DescriptionEditForm control={control} />
           </ButtonEdit>
         </Typography>
         <div />
         <Typography
-          dangerouslySetInnerHTML={{ __html: data?.moreInfo }}
+          dangerouslySetInnerHTML={{ __html: data?.description ?? '' }}
           mt={1}
           component="div"
           variant="body2"
@@ -40,7 +40,7 @@ const Description = ({ data, onSubmit }) => {
 const DescriptionEditForm = ({ control }) => {
   return (
     <CKEditorField
-      name="moreInfo"
+      name="description"
       control={control}
       style={{ width: '100%', minHeight: '300px' }}
     />

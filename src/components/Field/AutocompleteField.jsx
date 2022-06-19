@@ -1,13 +1,22 @@
 import { Autocomplete, TextField } from '@mui/material';
 import { Controller } from 'react-hook-form';
 
-function AutocompleteField({ rules, control, name, label, options = [], ...rest }) {
+function AutocompleteField({
+  multiple = false,
+  rules,
+  control,
+  name,
+  label,
+  options = [],
+  ...rest
+}) {
   return (
     <Controller
       render={({ field }) => (
         <Autocomplete
           {...field}
-          value={field.value ?? ''}
+          size="small"
+          value={field.value ?? (multiple ? [] : '')}
           getOptionLabel={(option) => option.label ?? option}
           options={options}
           onChange={(_, data) => field.onChange(data)}
@@ -15,6 +24,7 @@ function AutocompleteField({ rules, control, name, label, options = [], ...rest 
           helperText={control?.getFieldState(name)?.error?.message}
           fullWidth
           autoHighlight
+          multiple={multiple}
           renderInput={(params) => (
             <TextField
               {...params}

@@ -5,6 +5,9 @@ const applicationApi = {
   getAllApplications: async ({ queryKey }) => {
     return await axiosClient.get(endPoint, { params: queryKey[1] });
   },
+  getAllApplicationsByPostId: async ({ queryKey }) => {
+    return await axiosClient.get(endPoint + '/post', { params: queryKey[1] });
+  },
   getApplicationById: async ({ queryKey }) => {
     return await axiosClient.get(`${endPoint}/${queryKey[1]}`);
   },

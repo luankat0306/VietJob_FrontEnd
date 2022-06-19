@@ -6,7 +6,7 @@ export const grey = {
   500: '#AEB4BE',
   400: '#DAE1E7', // Border
   300: '#E3E9EF',
-  200: '#F3F5F9', // Line Stroke
+  200: '#f5f5f5', // Line Stroke
   100: '#F6F9FC'
 };
 
@@ -59,6 +59,5 @@ export const warning = {
   contrastText: '#FFFFFF'
 };
 export const dark = {
-  main: '#606060',
-  
+  main: '#606060'
 };

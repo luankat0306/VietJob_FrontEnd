@@ -24,10 +24,12 @@ import Education from './components/Education';
 import Experience from './components/Eperience';
 import Certificate from './components/Certificate';
 import Skill from './components/Skill';
+import { useParams } from 'react-router-dom';
 
 const ThongTinCaNhanPage = () => {
+  const { id } = useParams();
   const info = useSelector(selectUserInfo);
-  const { data: candidate } = useCandidateByUserId(info?._id);
+  const { data: candidate } = useCandidateByUserId(id || info?._id);
   const { mutateAsync } = useMutationUpdateCandidate();
   const onSubmitDescription = async (data) => {
     await mutateAsync({

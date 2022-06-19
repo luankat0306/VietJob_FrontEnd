@@ -12,7 +12,8 @@ const jobApi = {
     return await axiosClient.post(endPoint, job);
   },
   updateJob: async (job) => {
-    return await axiosClient.put(`${endPoint}/${job.id}`, job);
+    const { _id, ...data } = job;
+    return await axiosClient.put(`${endPoint}/${_id}`, data);
   },
   deleteJob: async (id) => {
     return await axiosClient.delete(`${endPoint}/${id}`);

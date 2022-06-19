@@ -21,8 +21,11 @@ import { useForm } from 'react-hook-form';
 import ButtonEdit from './ButtonEdit';
 import { formatDate } from '@/utils/format';
 import { useProvince, useProvinces } from '@/hooks/province';
+import { useParams } from 'react-router-dom';
 
 const InfoUser = ({ data, onSubmit }) => {
+  const { id } = useParams();
+
   const { data: menuProvince } = useProvinces({});
   const { data: provinceData } = useProvince(data?.province);
 
@@ -94,40 +97,42 @@ const InfoUser = ({ data, onSubmit }) => {
               {data?.position}
             </Typography>
           </Stack>
-          <ButtonEdit
-            title="Thông tin cá nhân"
-            fullWidth
-            maxWidth="sm"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <FieldLayout md={12} lg={12} xl={12} sx={{ mt: 2 }}>
-              <InputField name="user.name" control={control} label="Tên" />
-              <InputField name="user.email" control={control} label="Email" />
-              <InputField name="user.phoneNumber" control={control} label="Số điện thoại" />
-              <DatePickerField name="user.birthDay" control={control} label="Ngày sinh" />
-              <AutocompleteField
-                options={levels}
-                name="appliedPosition"
-                control={control}
-                label="Cấp bậc"
-              />
-              <AutocompleteField
-                options={salarys}
-                name="wage"
-                control={control}
-                label="Mức lương"
-              />
-              <AutocompleteField
-                options={menuProvince?.map((item) => ({
-                  value: item?._id,
-                  label: item.name
-                }))}
-                name="province"
-                control={control}
-                label="Tỉnh/Thành phố"
-              />
-            </FieldLayout>
-          </ButtonEdit>
+          {!id && (
+            <ButtonEdit
+              title="Thông tin cá nhân"
+              fullWidth
+              maxWidth="sm"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <FieldLayout md={12} lg={12} xl={12} sx={{ mt: 2 }}>
+                <InputField name="user.name" control={control} label="Tên" />
+                <InputField name="user.email" control={control} label="Email" />
+                <InputField name="user.phoneNumber" control={control} label="Số điện thoại" />
+                <DatePickerField name="user.birthDay" control={control} label="Ngày sinh" />
+                <AutocompleteField
+                  options={levels}
+                  name="appliedPosition"
+                  control={control}
+                  label="Cấp bậc"
+                />
+                <AutocompleteField
+                  options={salarys}
+                  name="wage"
+                  control={control}
+                  label="Mức lương"
+                />
+                <AutocompleteField
+                  options={menuProvince?.map((item) => ({
+                    value: item?._id,
+                    label: item.name
+                  }))}
+                  name="province"
+                  control={control}
+                  label="Tỉnh/Thành phố"
+                />
+              </FieldLayout>
+            </ButtonEdit>
+          )}
         </Stack>
         <Divider sx={{ my: 2, borderColor: primary[100] }} />
         {info.map(({ icon: Icon, title, content }) => {
