@@ -19,6 +19,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { NavItem } from '.';
 import useAuth from '../../hooks/auth/useAuth';
+import logo from '../../assets/logo.png';
 export const HeaderWrapper = styled(Box)(({ theme }) => ({
   position: 'relative',
   zIndex: 1,
@@ -53,7 +54,16 @@ const Header = (props) => {
       {/* <HeaderWrapper> */}
 
       <Toolbar id="back-to-top-anchor">
-        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
+          <Avatar
+            variant="rounded"
+            sx={{
+              width: '94px',
+              height: '100%',
+              marginRight: '5rem'
+            }}
+            src={logo}
+          />
           <Button size="large" color="primary" sx={{ my: 2 }} onClick={() => navigate('/')}>
             Trang chủ
           </Button>
@@ -62,18 +72,18 @@ const Header = (props) => {
             label="Việc làm"
             listMenu={[
               { label: 'Tìm kiếm việc làm', href: '/viec-lam/tim-kiem' },
-              { label: 'Việc làm đã ứng tuyền', href: '/nguoi-tim-viec/viec-lam-da-ung-tuyen' },
-              { label: 'Việc làm đã lưu', href: '/nguoi-tim-viec/viec-lam-da-luu' }
+              { label: 'Việc làm đã ứng tuyền', href: '/nguoi-tim-viec/viec-lam-da-ung-tuyen' }
+              // { label: 'Việc làm đã lưu', href: '/nguoi-tim-viec/viec-lam-da-luu' }
             ]}
           />
-          <NavItem
+          {/* <NavItem
             id="ho-so"
             label="Hồ sơ & CV"
             listMenu={[
               { label: 'Quản lý CV', href: '/nguoi-tim-viec/quan-ly-cv' },
               { label: 'Thông tin cá nhân', href: '/nguoi-tim-viec/thong-tin-ca-nhan' }
             ]}
-          />
+          /> */}
           <NavItem
             id="cong-ty"
             label="Nhà tuyển dụng"

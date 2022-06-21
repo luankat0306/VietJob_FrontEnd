@@ -13,6 +13,8 @@ function InputField({ rules, control, name, ...rest }) {
           error={control?.getFieldState(name)?.isTouched && control?.getFieldState(name)?.error}
           helperText={control?.getFieldState(name)?.error?.message}
           size="small"
+          label={rest.label}
+          required={rules?.required?.value}
         />
       )}
       name={name}

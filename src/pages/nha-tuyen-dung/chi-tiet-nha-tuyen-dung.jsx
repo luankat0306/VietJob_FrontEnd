@@ -24,8 +24,20 @@ import pic3 from '../../assets/employer-pngs/pic3.jpg';
 import pic4 from '../../assets/employer-pngs/pic4.jpg';
 import { primary, secondary } from '../../theme/themeColors';
 import JobListingBox from '@/components/JobListingBox/JobListingBox';
+import { useParams } from 'react-router-dom';
+import { useEmployer } from '@/hooks/employer';
+import { useJobs } from '@/hooks/job';
 
 function ChiTietNhaTuyenDungPage() {
+  const { id } = useParams();
+  const { data: employer } = useEmployer(id);
+
+  const [filter, setFilter] = React.useState({
+    page: 1,
+    limit: 10,
+    employer: id
+  });
+  const { data: jobs } = useJobs(filter);
   return (
     <Paper sx={{ bgcolor: 'whitesmoke', p: 5 }}>
       <Container>
@@ -45,19 +57,19 @@ function ChiTietNhaTuyenDungPage() {
                 <Stack>
                   <Box sx={{ height: 300, position: 'relative' }}>
                     <img
-                      src={cover}
+                      src={employer?.user?.avatar}
                       loading="lazy"
                       style={{
-                        objectFit: 'cover',
+                        objectFit: 'contain',
                         width: '100%',
                         height: 300
                       }}
                     />
                     <img
-                      src={avatar}
+                      src={employer?.user?.avatar}
                       loading="lazy"
                       style={{
-                        objectFit: 'cover',
+                        objectFit: 'contain',
                         position: 'absolute',
                         left: 30,
                         bottom: -70,
@@ -72,7 +84,7 @@ function ChiTietNhaTuyenDungPage() {
                       <MuiGrid item xs={6}>
                         <Box>
                           <Stack spacing={0}>
-                            <Typography variant="h5">Công ty TNHH CMC GLOBAL</Typography>
+                            <Typography variant="h5">{employer?.user?.name}</Typography>
                             <Box>
                               <MuiGrid container>
                                 <MuiGrid item xs={6}>
@@ -83,7 +95,7 @@ function ChiTietNhaTuyenDungPage() {
                                     sx={{ display: 'flex', alignItems: 'center' }}
                                   >
                                     <Language sx={{ mr: 1, my: 1 }} />
-                                    http://cmcglobal.com.vn/
+                                    {employer?.website}
                                   </Link>
                                 </MuiGrid>
                                 <MuiGrid item xs={6}>
@@ -92,7 +104,7 @@ function ChiTietNhaTuyenDungPage() {
                                     sx={{ display: 'flex', alignItems: 'center' }}
                                   >
                                     <Groups sx={{ mr: 1, my: 1 }} />
-                                    500-1000 nhân viên
+                                    {employer?.scale}
                                   </Typography>
                                 </MuiGrid>
                               </MuiGrid>
@@ -100,7 +112,7 @@ function ChiTietNhaTuyenDungPage() {
                           </Stack>
                         </Box>
                       </MuiGrid>
-                      <MuiGrid item xs={6}>
+                      {/* <MuiGrid item xs={6}>
                         <Box
                           sx={{
                             display: 'flex',
@@ -114,7 +126,7 @@ function ChiTietNhaTuyenDungPage() {
                             theo dõi công ty
                           </Button>
                         </Box>
-                      </MuiGrid>
+                      </MuiGrid> */}
                     </MuiGrid>
                   </Box>
                 </Stack>
@@ -125,7 +137,7 @@ function ChiTietNhaTuyenDungPage() {
 
         <Box>
           <MuiGrid container direction="row" justifyContent="center">
-            <MuiGrid item xs={8}>
+            <MuiGrid item xs={12}>
               <Box
                 component="div"
                 fullwidth
@@ -141,46 +153,7 @@ function ChiTietNhaTuyenDungPage() {
                 <Box sx={{ pl: 1, borderLeft: `5px solid ${secondary['main']}` }}>
                   <Typography variant="h6">Giới thiệu công ty</Typography>
                 </Box>
-                <Box sx={{ pt: 2 }}>
-                  <Stack spacing={2}>
-                    <Typography variant="p" gutterBottom component="div">
-                      CMC Global ra đời từ kinh nghiệm 25 năm trong lĩnh vực ICT và hơn 10 năm kinh
-                      nghiệm trong lĩnh vực Outsourcing của Tập đoàn công nghệ CMC, với sứ mệnh trở
-                      thành đơn vị cung cấp nhân lực kỹ sư phần mềm chất lượng cao, cung cấp các
-                      giải pháp, dịch vụ CNTT cho thị trường quốc tế. Hiện CMC Global đang sở hữu
-                      đến 700++ nhân viên, cùng một công ty thành viên tại Nhật Bản.
-                    </Typography>
-
-                    <Typography variant="p" gutterBottom component="div">
-                      Tập đoàn công nghệ CMC cùng CMC Global tự hào là một trong những doanh nghiệp
-                      hàng đầu Việt Nam trong lĩnh vực phát triển, cung cấp các giải pháp và dịch vụ
-                      phần mềm. Chia sẻ chung những tiêu chí tiên quyết cho sự phát triển của Tập
-                      đoàn CMC: Sáng tạo, Chuyên nghiệp, Đồng đội, CMC Global luôn nỗ lực không
-                      ngừng để xây dựng một tập thể vững mạnh, tiên phong trong nền công nghệ Việt
-                      Nam và ngày một vươn xa ra thế giới.
-                    </Typography>
-
-                    <Typography variant="p" gutterBottom component="div">
-                      Với mục tiêu đưa các sản phẩm và dịch vụ công nghệ cao của CMC ra thế giới,
-                      CMC Global đang xây dựng những nền móng đầu tiên với tham vọng: có ít nhất
-                      2.000 người làm việc ở nước ngoài vào năm 2022; doanh thu phần mềm và dịch vụ
-                      từ thị trường xuất khẩu lớn hơn thị trường trong nước; có nhiều sản phẩm và
-                      dịch vụ đạt tiêu chuẩn hàng đầu thế giới. Trong tương lai, ngoài công ty thành
-                      viên CMC Japan tại Nhật Bản, CMC Global sẽ mở thêm các chi nhánh tại các nước
-                      châu Á như Singapore, Malaysia,….
-                    </Typography>
-
-                    <Typography variant="p" gutterBottom component="div">
-                      Chiến lược đầu tư của CMC Global được định vị có phần khác biệt so với các
-                      công ty outsourcing cũng ngành ở thị trường Việt Nam. CMC Global sẽ chú trọng
-                      vào việc phát triển nguồn lực, chuẩn hóa qui trình cung cấp dịch vụ và phát
-                      triển phần mềm, đào tạo nhân sự chất lượng cao, cùng lúc thu hút số lượng lớn
-                      các nhân tài trong lĩnh vực công nghệ thông tin. Đồng thời, CMC Global cũng sẽ
-                      là đại diện, cầu nối cho các công ty thành viên của CMC trong việc cung cấp
-                      các giải pháp và dịch vụ tích hợp trọn gói ra thế giới.
-                    </Typography>
-                  </Stack>
-                </Box>
+                <Box sx={{ pt: 2 }}>{employer?.description}</Box>
               </Box>
 
               <Box
@@ -198,6 +171,10 @@ function ChiTietNhaTuyenDungPage() {
                   <Typography variant="h6">Tuyển Dụng</Typography>
                 </Box>
                 <Stack spacing={2}>
+                  {jobs?.data?.map((item, index) => (
+                    <JobListingBox key={index} item={item} />
+                  ))}
+                  {/* <JobListingBox />
                   <JobListingBox />
                   <JobListingBox />
                   <JobListingBox />
@@ -205,9 +182,7 @@ function ChiTietNhaTuyenDungPage() {
                   <JobListingBox />
                   <JobListingBox />
                   <JobListingBox />
-                  <JobListingBox />
-                  <JobListingBox />
-                  <JobListingBox />
+                  <JobListingBox /> */}
                 </Stack>
                 <Box
                   fullWidth
@@ -219,12 +194,19 @@ function ChiTietNhaTuyenDungPage() {
                     justifyContent: 'center'
                   }}
                 >
-                  <Pagination count={5} shape="rounded" />
+                  <Pagination
+                    shape="rounded"
+                    page={filter.page}
+                    count={Math.floor((jobs?.totalPage ?? 9) / 10) ?? 1}
+                    onChange={(event, value) => {
+                      setFilter({ ...filter, page: value });
+                    }}
+                  />
                 </Box>
               </Box>
             </MuiGrid>
 
-            <MuiGrid item xs={4}>
+            {/* <MuiGrid item xs={4}>
               <Box
                 component="div"
                 fullwidth
@@ -332,7 +314,7 @@ function ChiTietNhaTuyenDungPage() {
                   </Stack>
                 </Box>
               </Box>
-            </MuiGrid>
+            </MuiGrid> */}
           </MuiGrid>
         </Box>
       </Container>

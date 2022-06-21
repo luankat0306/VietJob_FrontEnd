@@ -43,7 +43,7 @@ const Banner = () => {
       sx={{ position: 'relative', zIndex: 1, overflow: 'hidden' }}
     >
       <MuiGrid container spacing={1} sx={{ px: 24 }}>
-        <MuiGrid item xs={5}>
+        <MuiGrid item xs={7} md={5} lg={6} xl={5}>
           <Stack data-speed="-2" className="layer" direction="column" mt={'30%'}>
             <Typography data-aos="fade-right" variant="h2" fontWeight={700}>
               Tìm việc làm phù hợp với bạn
@@ -61,6 +61,7 @@ const Banner = () => {
                   name="title"
                   control={control}
                   sx={{ '&.MuiTextField-root': { backgroundColor: grey[200] } }}
+                  fullWidth
                 />
                 <AutocompleteField
                   label="Tỉnh/Thành phố"
@@ -91,7 +92,7 @@ const Banner = () => {
             </Card>
           </Stack>
         </MuiGrid>
-        <MuiGrid item xs={7}>
+        <MuiGrid item xs={5} md={7} lg={6} xl={7}>
           <img
             data-speed="-2"
             className="layer"

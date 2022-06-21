@@ -1,4 +1,5 @@
 import { isEmpty } from '@/utils/verify';
+import { useSnackbar } from 'notistack';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import certificateApi from '../../api/certificateApi';
 import useUploadFile from '../uploadFile';
@@ -19,10 +20,11 @@ export const useCertificate = (id) => {
 export const useMutationCreateCertificate = () => {
   const queryClient = useQueryClient();
   const { uploadFile } = useUploadFile();
+  const { enqueueSnackbar } = useSnackbar();
 
   return useMutation(
     async (data) => {
-      const file = await uploadFile(data.image[0]);
+      const file = data.image[0] ? await uploadFile(data.image[0]) : '';
 
       certificateApi.createCertificate({
         ...data,
@@ -32,6 +34,12 @@ export const useMutationCreateCertificate = () => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(key);
+        enqueueSnackbar('Thêm thành công', {
+          variant: 'success'
+        });
+      },
+      onError: (err) => {
+        enqueueSnackbar(err.message, { variant: 'error' });
       }
     }
   );
@@ -40,6 +48,8 @@ export const useMutationCreateCertificate = () => {
 export const useMutationUpdateCertificate = () => {
   const queryClient = useQueryClient();
   const { uploadFile } = useUploadFile();
+  const { enqueueSnackbar } = useSnackbar();
+
   return useMutation(
     async (data) => {
       let { __v, image, ...rest } = data;
@@ -48,7 +58,7 @@ export const useMutationUpdateCertificate = () => {
       console.log(image instanceof File);
 
       if (image instanceof File) {
-        const file = await uploadFile(data.image[0]);
+        const file = data.image[0] ? await uploadFile(data.image[0]) : '';
         certificateApi.updateCertificate({ ...rest, image: file });
         return;
       }
@@ -58,6 +68,10 @@ export const useMutationUpdateCertificate = () => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(key);
+        enqueueSnackbar('Cập nhật thành công', { variant: 'success' });
+      },
+      onError: (err) => {
+        enqueueSnackbar(err.message, { variant: 'error' });
       }
     }
   );
@@ -65,10 +79,15 @@ export const useMutationUpdateCertificate = () => {
 
 export const useMutationDeleteCertificate = () => {
   const queryClient = useQueryClient();
+  const { enqueueSnackbar } = useSnackbar();
 
   return useMutation(certificateApi.deleteCertificate, {
     onSuccess: () => {
       queryClient.invalidateQueries(key);
+      enqueueSnackbar('Xoá thành công', { variant: 'success' });
+    },
+    onError: (err) => {
+      enqueueSnackbar(err.message, { variant: 'error' });
     }
   });
 };

@@ -141,7 +141,7 @@ const routes = [
         element: <TopCongTyPage />
       },
       {
-        path: 'danh-sach/chi-tiet-nha-tuyen-dung',
+        path: 'chi-tiet-nha-tuyen-dung/:id',
         element: <ChiTietNhaTuyenDungPage />
       },
       {

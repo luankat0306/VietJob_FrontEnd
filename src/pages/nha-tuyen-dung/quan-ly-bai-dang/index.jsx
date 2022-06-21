@@ -27,7 +27,7 @@ import { useProvinces } from '@/hooks/province';
 import { useCareers } from '@/hooks/career';
 import { useForm } from 'react-hook-form';
 import DatePickerField from '@/components/Field/DatePickerField';
-import { levels, salarys, formalities, experiences } from '@/utils/optionsData';
+import { levels, salaries, formalities, experiences } from '@/utils/optionsData';
 import {
   useJobs,
   useMutationCreateJob,
@@ -313,7 +313,7 @@ const PostEditForm = ({ control }) => {
         control={control}
         options={experiences}
       />
-      <AutocompleteField label="Mức lương" name="wage" control={control} options={salarys} />
+      <AutocompleteField label="Mức lương" name="wage" control={control} options={salaries} />
       <AutocompleteField
         label="Hình thức làm việc"
         name="formality"

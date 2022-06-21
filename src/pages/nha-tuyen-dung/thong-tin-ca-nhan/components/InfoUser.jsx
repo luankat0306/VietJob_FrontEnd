@@ -16,7 +16,7 @@ import AutocompleteField from '@/components/Field/AutocompleteField';
 import DatePickerField from '@/components/Field/DatePickerField';
 import InputField from '@/components/Field/InputField';
 import FieldLayout from '@/components/FieldLayout';
-import { levels, salarys } from '@/utils/optionsData';
+import { levels, salaries } from '@/utils/optionsData';
 import { Avatar, Button, Card, CardContent, Divider, Stack, Typography } from '@mui/material';
 import { Fragment, useEffect } from 'react';
 import { useForm } from 'react-hook-form';

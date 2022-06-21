@@ -1,4 +1,4 @@
-import { EditRounded } from '@mui/icons-material';
+import { CloseRounded, EditRounded } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { IconButton } from '@mui/material';
 import Button from '@mui/material/Button';
@@ -10,6 +10,7 @@ import * as React from 'react';
 
 export default function ButtonEdit({
   button: NewButton,
+  isDelete,
   title,
   onSubmit,
   children,
@@ -41,6 +42,15 @@ export default function ButtonEdit({
     <>
       {NewButton ? (
         Component
+      ) : isDelete ? (
+        <IconButton color="error" size="small" onClick={handleClickOpen} sx={sx}>
+          <CloseRounded
+            sx={{
+              fontSize: fontSize
+            }}
+            fontSize="small"
+          />
+        </IconButton>
       ) : (
         <IconButton size="small" onClick={handleClickOpen} sx={sx}>
           <EditRounded
@@ -69,7 +79,7 @@ export default function ButtonEdit({
               handleClose();
             }}
           >
-            Lưu
+            {isDelete ? 'Xác nhận' : 'Lưu'}
           </LoadingButton>
         </DialogActions>
       </Dialog>

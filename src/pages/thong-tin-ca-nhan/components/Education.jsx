@@ -6,6 +6,7 @@ import FieldLayout from '@/components/FieldLayout';
 import {
   useEducations,
   useMutationCreateEducation,
+  useMutationDeleteEducation,
   useMutationUpdateEducation
 } from '@/hooks/education';
 import { formatDate } from '@/utils/format';
@@ -27,10 +28,12 @@ const Education = ({ data }) => {
   const { data: educations = [] } = useEducations({ candidateId: data?._id });
   const { mutateAsync: mutateCreate, isLoading: isLoadingCreate } = useMutationCreateEducation();
   const { mutateAsync: mutateUpdate, isLoading: isLoadingUpdate } = useMutationUpdateEducation();
+  const { mutateAsync: mutateDelete, isLoading: isLoadingDelete } = useMutationDeleteEducation();
   const { control, handleSubmit, reset, watch } = useForm({
     defaultValues: {
       title: '',
       dateStart: null,
+      isCurrent: false,
       dateEnd: null,
       description: ''
     }
@@ -95,10 +98,34 @@ const Education = ({ data }) => {
                   >
                     <EducationEditForm watch={watch} control={control} />
                   </ButtonEdit>
+                  <ButtonEdit
+                    isDelete
+                    isLoading={isLoadingDelete}
+                    fullWidth
+                    maxWidth="sm"
+                    title="Xoá học vấn"
+                    sx={{
+                      display: showEdit === education._id ? 'inline-flex' : 'none',
+                      ml: 2
+                    }}
+                    onClick={() => setShowEdit('')}
+                    onSubmit={() => {
+                      const education = educations.find((item) => item._id === showEdit);
+                      if (education) {
+                        mutateDelete(education._id);
+                      }
+                      setShowEdit('');
+                    }}
+                  >
+                    <Typography variant="body2" color="textSecondary">
+                      Bạn có chắc chắn muốn xoá học vấn này?
+                    </Typography>
+                  </ButtonEdit>
                   {/* )} */}
                 </Stack>
                 <Typography component="div" variant="body2" color="textSecondary">
-                  {formatDate(education.dateStart)} - {formatDate(education.dateEnd)}
+                  {formatDate(education.dateStart)} -{' '}
+                  {education?.isCurrent ? 'Đến nay' : formatDate(education.dateEnd)}
                 </Typography>
                 <Typography
                   dangerouslySetInnerHTML={{
@@ -176,12 +203,24 @@ const EducationEditForm = ({ control, watch }) => {
         name="title"
         control={control}
         placholder="Đại học Công nghệ TP.Hồ Chí Minh - HUTECH"
+        rules={{
+          required: {
+            value: true,
+            message: 'Tiêu đề không được để trống'
+          }
+        }}
       />
       <DatePickerField
         label="Ngày bắt đầu"
         name="dateStart"
         control={control}
         placeholder="01/01/2020"
+        rules={{
+          required: {
+            value: true,
+            message: 'Ngày bắt đầu không được để trống'
+          }
+        }}
       />
       <CheckboxField control={control} label="Đến nay" name="isCurrent" />
 
@@ -191,6 +230,12 @@ const EducationEditForm = ({ control, watch }) => {
           name="dateEnd"
           control={control}
           placeholder="01/01/2020"
+          rules={{
+            required: {
+              value: true,
+              message: 'Ngày kết thúc không được để trống'
+            }
+          }}
         />
       )}
 
@@ -199,6 +244,12 @@ const EducationEditForm = ({ control, watch }) => {
         name="description"
         control={control}
         style={{ width: '100%', minHeight: '300px' }}
+        rules={{
+          required: {
+            value: true,
+            message: 'Mô tả không được để trống'
+          }
+        }}
       />
     </FieldLayout>
   );

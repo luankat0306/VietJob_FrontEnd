@@ -5,6 +5,7 @@ import FieldLayout from '@/components/FieldLayout';
 import {
   useExperiences,
   useMutationCreateExperience,
+  useMutationDeleteExperience,
   useMutationUpdateExperience
 } from '@/hooks/experience';
 import { formatDate } from '@/utils/format';
@@ -26,6 +27,7 @@ const Experience = ({ data }) => {
   const { data: experiences = [] } = useExperiences({ candidateId: data?._id });
   const { mutateAsync: mutateCreate, isLoading: isLoadingCreate } = useMutationCreateExperience();
   const { mutateAsync: mutateUpdate, isLoading: isLoadingUpdate } = useMutationUpdateExperience();
+  const { mutateAsync: mutateDelete, isLoading: isLoadingDelete } = useMutationDeleteExperience();
   const { control, handleSubmit, reset } = useForm({
     defaultValues: {
       title: '',
@@ -93,6 +95,30 @@ const Experience = ({ data }) => {
                     onSubmit={handleSubmit(onSubmitUpdate)}
                   >
                     <ExperienceEditForm control={control} />
+                  </ButtonEdit>
+
+                  <ButtonEdit
+                    isDelete
+                    isLoading={isLoadingDelete}
+                    fullWidth
+                    maxWidth="sm"
+                    title="Xoá kinh nghiệm"
+                    sx={{
+                      display: showEdit === experience._id ? 'inline-flex' : 'none',
+                      ml: 2
+                    }}
+                    onClick={() => setShowEdit('')}
+                    onSubmit={() => {
+                      const education = experiences.find((item) => item._id === showEdit);
+                      if (education) {
+                        mutateDelete(education._id);
+                      }
+                      setShowEdit('');
+                    }}
+                  >
+                    <Typography variant="body2" color="textSecondary">
+                      Bạn có chắc chắn muốn xoá kinh nghiệm này?
+                    </Typography>
                   </ButtonEdit>
                   {/* )} */}
                 </Stack>

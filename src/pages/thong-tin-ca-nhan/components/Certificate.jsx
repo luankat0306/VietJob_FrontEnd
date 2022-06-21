@@ -5,6 +5,7 @@ import FieldLayout from '@/components/FieldLayout';
 import {
   useCertificates,
   useMutationCreateCertificate,
+  useMutationDeleteCertificate,
   useMutationUpdateCertificate
 } from '@/hooks/certificate';
 import useUploadFile from '@/hooks/uploadFile';
@@ -27,6 +28,7 @@ const Certificate = ({ data }) => {
   const { data: certificates = [] } = useCertificates({ candidateId: data?._id });
   const { mutateAsync: mutateCreate, isLoading: isLoadingCreate } = useMutationCreateCertificate();
   const { mutateAsync: mutateUpdate, isLoading: isLoadingUpdate } = useMutationUpdateCertificate();
+  const { mutateAsync: mutateDelete, isLoading: isLoadingDelete } = useMutationDeleteCertificate();
   const { uploadFile } = useUploadFile();
   const { control, handleSubmit, reset, watch } = useForm({
     defaultValues: {
@@ -94,7 +96,29 @@ const Certificate = ({ data }) => {
                   >
                     <CertificateEditForm control={control} />
                   </ButtonEdit>
-
+                  <ButtonEdit
+                    isDelete
+                    isLoading={isLoadingDelete}
+                    fullWidth
+                    maxWidth="sm"
+                    title="Xoá chứng chỉ"
+                    sx={{
+                      display: showEdit === certificate._id ? 'inline-flex' : 'none',
+                      ml: 2
+                    }}
+                    onClick={() => setShowEdit('')}
+                    onSubmit={() => {
+                      const certificate = certificates.find((item) => item._id === showEdit);
+                      if (certificate) {
+                        mutateDelete(certificate._id);
+                      }
+                      setShowEdit('');
+                    }}
+                  >
+                    <Typography variant="body2" color="textSecondary">
+                      Bạn có chắc chắn muốn xoá chứng chỉ này?
+                    </Typography>
+                  </ButtonEdit>
                   {/* )} */}
                 </Stack>
                 {/* <Typography component="div" variant="body2" color="textSecondary">

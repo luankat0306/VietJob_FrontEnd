@@ -17,11 +17,27 @@ import {
   Link
 } from '@mui/material';
 import EmployerSearchBar from '@/components/EmployerSearchBar/EmployerSearchBar';
+import { useEmployers } from '@/hooks/employer';
+import { removeEmpty } from '@/utils/format';
 
 function DanhSachNhaTuyenDungPage() {
+  const [filter, setFilter] = React.useState({
+    page: 1,
+    limit: 10
+  });
+  const { data: employers } = useEmployers(filter);
   return (
     <Paper sx={{}}>
-      <EmployerSearchBar />
+      <EmployerSearchBar
+        onChange={(e) =>
+          setFilter((prev) => ({
+            ...prev,
+            ...removeEmpty({
+              name: e.target.value
+            })
+          }))
+        }
+      />
       <Box data-aos="fade-right" sx={{ width: '100%' }}>
         <Container>
           <Typography
@@ -36,15 +52,18 @@ function DanhSachNhaTuyenDungPage() {
           >
             Danh Sách Các Nhà Tuyển Dụng Nổi Bật
           </Typography>
-          <Link href="/nha-tuyen-dung/danh-sach/chi-tiet-nha-tuyen-dung" underline="none">
-            <MuiGrid
-              data-aos="fade-right"
-              container
-              spacing={{ xs: 2, md: 3 }}
-              columns={{ xs: 4, sm: 8, md: 12 }}
-            >
-              {Array.from(Array(6)).map((_, index) => (
-                <MuiGrid item xs={2} sm={4} md={4} key={index}>
+          <MuiGrid
+            data-aos="fade-right"
+            container
+            spacing={{ xs: 2, md: 3 }}
+            columns={{ xs: 4, sm: 8, md: 12 }}
+          >
+            {employers?.map((item, index) => (
+              <MuiGrid item xs={2} sm={4} md={4} key={index}>
+                <Link
+                  href={'/nha-tuyen-dung/chi-tiet-nha-tuyen-dung/' + item?._id}
+                  underline="none"
+                >
                   <Card
                     sx={{
                       maxWidth: 400,
@@ -63,15 +82,16 @@ function DanhSachNhaTuyenDungPage() {
                         <CardMedia
                           component="img"
                           height="200"
-                          image={cover}
+                          width="100%"
+                          image={item?.user?.avatar}
                           sx={{
-                            objectFit: 'cover'
+                            objectFit: 'contain'
                           }}
                         />
 
-                        <CardMedia
+                        {/* <CardMedia
                           component="img"
-                          image={avatar}
+                          image={item?.user?.avatar}
                           sx={{
                             objectFit: 'cover',
                             width: 130,
@@ -83,26 +103,42 @@ function DanhSachNhaTuyenDungPage() {
                             left: 30,
                             zIndex: 1
                           }}
-                        />
+                        /> */}
                       </Box>
                       <CardContent>
-                        <Typography gutterBottom variant="h6" component="div">
-                          CÔNG TY TNHH CMC GLOBAL
+                        <Typography
+                          sx={{
+                            minHeight: '64px',
+                            height: '64px',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis'
+                          }}
+                          gutterBottom
+                          variant="h6"
+                          component="div"
+                        >
+                          {item?.user?.name}
                         </Typography>
-                        <Typography variant="body2" component="div" color="text.secondary">
-                          CMC Global ra đời từ kinh nghiệm 25 năm trong lĩnh vực ICT và hơn 10 năm
-                          kinh nghiệm trong lĩnh vực Outsourcing của Tập đoàn công nghệ CMC, với sứ
-                          mệnh trở thành đơn vị cung cấp nhân lực kỹ sư phần mềm chất lượng cao,
-                          cung cấp các giải pháp, dịch vụ CNTT cho thị trường quốc tế. Hiện CMC
-                          Global đang sở hữu đến 700++ nhân viên,...
+                        <Typography
+                          sx={{
+                            minHeight: '180px',
+                            height: '180px',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis'
+                          }}
+                          variant="body2"
+                          component="div"
+                          color="text.secondary"
+                        >
+                          {item?.description}
                         </Typography>
                       </CardContent>
                     </CardActionArea>
                   </Card>
-                </MuiGrid>
-              ))}
-            </MuiGrid>
-          </Link>
+                </Link>
+              </MuiGrid>
+            ))}
+          </MuiGrid>
           <Box
             fullWidth
             sx={{
@@ -113,7 +149,14 @@ function DanhSachNhaTuyenDungPage() {
               justifyContent: 'center'
             }}
           >
-            <Pagination count={5} shape="rounded" />
+            <Pagination
+              shape="rounded"
+              page={filter.page}
+              count={Math.floor((employers?.totalPage ?? 9) / 10) ?? 1}
+              onChange={(event, value) => {
+                setFilter({ ...filter, page: value });
+              }}
+            />
           </Box>
         </Container>
       </Box>

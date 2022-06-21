@@ -35,6 +35,7 @@ function AutocompleteField({
                 autoComplete: 'disabled' // disable autocomplete and autofill
               }}
               size="small"
+              required={rules?.required?.value}
             />
           )}
         />

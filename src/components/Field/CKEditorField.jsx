@@ -12,7 +12,7 @@ function CKEditorField({ rules, control, name, ...rest }) {
             listStyleType: 'inherit'
           }}
         >
-          <FormLabel sx={{ mb: 2 }}>{rest.label}</FormLabel>
+          <FormLabel sx={{ mb: 2 }}>{rest.label + (rules?.required?.value ? '*' : '')}</FormLabel>
           <CKEditor
             {...field}
             {...rest}

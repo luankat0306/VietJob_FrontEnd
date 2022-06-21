@@ -26,6 +26,7 @@ function DatePickerField({ rules, control, name, ...rest }) {
                   control?.getFieldState(name)?.isTouched && control?.getFieldState(name)?.error
                 }
                 helperText={control?.getFieldState(name)?.error?.message}
+                required={rules?.required?.value}
               />
             )}
           />
