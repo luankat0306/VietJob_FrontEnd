@@ -18,6 +18,7 @@ import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/auth/useAuth';
 import background from '../../assets/background.jpg';
+import CheckboxField from '@/components/Field/CheckboxField';
 
 function DangNhapPage() {
   const location = useLocation();
@@ -32,7 +33,7 @@ function DangNhapPage() {
     defaultValues: {
       email: '',
       password: '',
-      role: 0
+      role: false
     }
   });
   const password = watch('password');
@@ -44,15 +45,19 @@ function DangNhapPage() {
   }, [state]);
 
   return (
-    <Paper fullwidth sx={{height:647,margin: 0}}>
-      <Box  data-aos="fade-right" fullwidth sx={{
-        height: "100%",
-        backgroundImage:`url(${background})`,
-        backgroundPosition:"center",
-        backgroundRepeat:"no-repeat",
-        backgroundSize:"cover"
-        }}>
-        <Container data-aos="fade-right" sx={{ py:7 }} maxWidth="xs">
+    <Paper fullwidth sx={{ height: 647, margin: 0 }}>
+      <Box
+        data-aos="fade-right"
+        fullwidth
+        sx={{
+          height: '100%',
+          backgroundImage: `url(${background})`,
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover'
+        }}
+      >
+        <Container data-aos="fade-right" sx={{ py: 7 }} maxWidth="xs">
           <TabContext value={value}>
             <Card elevation={3}>
               <TabList onChange={handleChange} centered>
@@ -77,7 +82,12 @@ function DangNhapPage() {
                 <TabPanel value={0}>
                   <Stack spacing={3}>
                     <InputField name="email" control={control} label="Email" />
-                    <InputField type="password" name="password" control={control} label="Mật khẩu" />
+                    <InputField
+                      type="password"
+                      name="password"
+                      control={control}
+                      label="Mật khẩu"
+                    />
 
                     <Typography textAlign="center" color="error" variant="caption">
                       {errorLogin?.message}
@@ -90,7 +100,12 @@ function DangNhapPage() {
                 <TabPanel value={1}>
                   <Stack spacing={3}>
                     <InputField name="email" control={control} label="Email" />
-                    <InputField type="password" name="password" control={control} label="Mật khẩu" />
+                    <InputField
+                      type="password"
+                      name="password"
+                      control={control}
+                      label="Mật khẩu"
+                    />
                     <InputField
                       name="passwordConfirm"
                       type="password"
@@ -100,6 +115,7 @@ function DangNhapPage() {
                       }}
                       label="Xác nhận mật khẩu"
                     />
+                    <CheckboxField name="role" control={control} label="Là nhà tuyển dụng" />
                     <Typography textAlign="center" color="error" variant="caption">
                       {errorSignup?.message}
                     </Typography>

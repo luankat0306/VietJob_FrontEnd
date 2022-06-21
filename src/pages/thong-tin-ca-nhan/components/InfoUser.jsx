@@ -156,16 +156,16 @@ const InfoUser = ({ data, onSubmit }) => {
         })}
         {/* <Box mt={4} display="flex" justifyContent="center"> */}
 
-        {/* {id && ( */}
-        <Stack direction="row" spacing={2}>
-          <Button fullWidth size="large" variant="contained" color="primary">
-            Đồng ý
-          </Button>
-          <Button fullWidth size="large" variant="text" color="error">
-            Từ chối
-          </Button>
-        </Stack>
-        {/* )} */}
+        {id && (
+          <Stack direction="row" spacing={2}>
+            <Button fullWidth size="large" variant="contained" color="primary">
+              Đồng ý
+            </Button>
+            <Button fullWidth size="large" variant="text" color="error">
+              Từ chối
+            </Button>
+          </Stack>
+        )}
 
         {/* </Box> */}
       </CardContent>

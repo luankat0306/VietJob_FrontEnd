@@ -1,6 +1,7 @@
 import { isEmpty } from '@/utils/verify';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import employerApi from '../../api/employerApi';
+import useUploadFile from '../uploadFile';
 
 const key = 'employers';
 export const useEmployers = (params) => {

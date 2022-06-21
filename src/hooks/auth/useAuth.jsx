@@ -29,7 +29,7 @@ const useAuth = () => {
 
   const signup = async ({ email, password, role }) => {
     mutateSignup(
-      { email, password, role },
+      { email, password, role: role ? 1 : 0 },
       {
         onSuccess: (data) => {
           navigate('/dang-nhap');

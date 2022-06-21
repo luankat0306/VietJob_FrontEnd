@@ -5,7 +5,7 @@ const initialState = {
     email: '',
     gender: 0,
     role: null,
-    _id: 0
+    _id: null
   },
   isLogin: false,
   jwt: ''

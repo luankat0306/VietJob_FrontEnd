@@ -1,4 +1,5 @@
 import { useEmployerByUserId, useMutationUpdateEmployer } from '@/hooks/employer';
+import useUploadFile from '@/hooks/uploadFile';
 
 import { selectUserInfo } from '@/redux/authSlice';
 import { Box, Container, Grid } from '@mui/material';
@@ -20,6 +21,7 @@ const ThongTinCaNhanPage = () => {
       description: data.description
     });
   };
+
   const infoUser = {
     ...employer
     // name: employer?.user?.name,

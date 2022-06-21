@@ -11,7 +11,7 @@ function JobListingBox({ item }) {
     <Box
       sx={{
         p: 2,
-        m:1,
+        m: 1,
         border: `3px solid #f4f4f4`,
         borderRadius: 2,
         transition: 'ease-in-out 0.3s',
@@ -30,8 +30,7 @@ function JobListingBox({ item }) {
             style={{
               objectFit: 'contain',
               width: 160,
-              height: 130,
-              
+              height: 130
             }}
           />
         </MuiGrid>
@@ -39,20 +38,20 @@ function JobListingBox({ item }) {
         <MuiGrid container item xs={10} direction="column">
           <MuiGrid container item direction="row" spacing={2}>
             <MuiGrid item xs={8}>
-              <Link href="#" underline="hover">
+              <Link href={'/viec-lam/' + item?._id} underline="hover">
                 <Typography variant="h6">{item?.title}</Typography>
               </Link>
-              <Link href="#" underline="hover">
+              <Link href={'/viec-lam/' + item?._id} underline="hover">
                 <Typography variant="subtitle1">{item?.employer?.user?.name}</Typography>
               </Link>
             </MuiGrid>
-            <MuiGrid item xs={4}>            
-                <Typography variant="subtitle1">
-                  Hạn cuối: <strong>{item?.deadline ? formatDate(item?.deadline) : ''}</strong> 
-                </Typography>    
+            <MuiGrid item xs={4}>
+              <Typography variant="subtitle1">
+                Hạn cuối: <strong>{item?.deadline ? formatDate(item?.deadline) : ''}</strong>
+              </Typography>
             </MuiGrid>
           </MuiGrid>
-          <MuiGrid container item  direction="row">
+          <MuiGrid container item direction="row">
             <MuiGrid item xs>
               <Stack direction="row" spacing={1}>
                 <Chip sx={{ borderRadius: 1 }} label={item?.wage} />

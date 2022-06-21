@@ -243,7 +243,7 @@ const ChiTietViecLamPage = () => {
               </Button> */}
               {/* </Box> */}
 
-              <ButtonApply isLoading={isLoadingApply} onSubmit={onSubmit} />
+              {info?.role === 0 && <ButtonApply isLoading={isLoadingApply} onSubmit={onSubmit} />}
             </CardContent>
           </Card>
         </Grid>

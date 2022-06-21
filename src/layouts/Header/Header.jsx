@@ -41,6 +41,19 @@ const Header = (props) => {
     { label: 'Đăng xuất', onClick: logout }
   ];
 
+  const settingNTD = [
+    {
+      label: 'Thông tin cá nhân',
+      onClick: () => navigate('/nha-tuyen-dung/thong-tin-ca-nhan')
+    },
+    {
+      label: 'Quản lý bài đăng',
+      onClick: () => navigate('/nha-tuyen-dung/quan-ly-bai-dang')
+    },
+
+    { label: 'Đăng xuất', onClick: logout }
+  ];
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -72,7 +85,15 @@ const Header = (props) => {
             label="Việc làm"
             listMenu={[
               { label: 'Tìm kiếm việc làm', href: '/viec-lam/tim-kiem' },
-              { label: 'Việc làm đã ứng tuyền', href: '/nguoi-tim-viec/viec-lam-da-ung-tuyen' }
+              ...(info?.role === 0
+                ? [
+                    {
+                      label: 'Việc làm đã ứng tuyền',
+                      href: '/nguoi-tim-viec/viec-lam-da-ung-tuyen'
+                    }
+                  ]
+                : [])
+
               // { label: 'Việc làm đã lưu', href: '/nguoi-tim-viec/viec-lam-da-luu' }
             ]}
           />
@@ -84,14 +105,14 @@ const Header = (props) => {
               { label: 'Thông tin cá nhân', href: '/nguoi-tim-viec/thong-tin-ca-nhan' }
             ]}
           /> */}
-          <NavItem
-            id="cong-ty"
-            label="Nhà tuyển dụng"
-            listMenu={[
-              { label: 'Danh sách', href: '/nha-tuyen-dung/danh-sach' },
-              { label: 'Top nhà tuyển dụng', href: '/nha-tuyen-dung/top-cong-ty' }
-            ]}
-          />
+          <Button
+            size="large"
+            color="primary"
+            sx={{ my: 2 }}
+            onClick={() => navigate('/nha-tuyen-dung/danh-sach')}
+          >
+            Nhà tuyển dụng
+          </Button>
         </Box>
         {isLogin ? (
           <Box sx={{ flexGrow: 0 }}>
@@ -124,7 +145,7 @@ const Header = (props) => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
+              {(info?.role === 0 ? settings : settingNTD).map((setting) => (
                 <MenuItem
                   key={setting.label}
                   onClick={() => {

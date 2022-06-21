@@ -79,9 +79,9 @@ function ChiTietNhaTuyenDungPage() {
                       }}
                     />
                   </Box>
-                  <Box sx={{ height: 'auto,', ml: 30, my:1 }}>
+                  <Box sx={{ height: 'auto,', ml: 30, my: 1 }}>
                     <MuiGrid container>
-                      <MuiGrid item xs={6}>
+                      <MuiGrid item xs={12}>
                         <Box>
                           <Stack spacing={0}>
                             <Typography variant="h6">{employer?.user?.name}</Typography>
@@ -174,7 +174,6 @@ function ChiTietNhaTuyenDungPage() {
                   {jobs?.data?.map((item, index) => (
                     <JobListingBox key={index} item={item} />
                   ))}
-                 
                 </Stack>
                 <Box
                   fullWidth

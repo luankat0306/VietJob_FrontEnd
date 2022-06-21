@@ -23,6 +23,8 @@ import { useForm } from 'react-hook-form';
 import ButtonEdit from './ButtonEdit';
 import { formatDate } from '@/utils/format';
 import { useProvince, useProvinces } from '@/hooks/province';
+import UploadField from '@/components/Field/UploadField';
+import { Box } from '@mui/system';
 
 const InfoUser = ({ data, onSubmit }) => {
   const { control, reset, handleSubmit } = useForm();
@@ -109,6 +111,18 @@ const InfoUser = ({ data, onSubmit }) => {
               <InputField name="user.phoneNumber" control={control} label="Số điện thoại" />
               <InputField name="website" control={control} label="Website" />
               <InputField name="scale" control={control} label="Quy mô" />
+              <UploadField
+                allowMultiple={false}
+                control={control}
+                name="user.avatar"
+                label="Ảnh đại diện"
+              />
+              <UploadField
+                allowMultiple={false}
+                control={control}
+                name="user.cover"
+                label="Ảnh bìa"
+              />
             </FieldLayout>
           </ButtonEdit>
         </Stack>
@@ -132,11 +146,6 @@ const InfoUser = ({ data, onSubmit }) => {
             </Fragment>
           );
         })}
-        {/* <Box mt={4} display="flex" justifyContent="center"> */}
-        <Button fullWidth size="large" variant="contained" color="primary">
-          Liên hệ
-        </Button>
-        {/* </Box> */}
       </CardContent>
     </Card>
   );
