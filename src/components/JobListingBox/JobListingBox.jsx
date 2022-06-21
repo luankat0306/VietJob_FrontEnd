@@ -29,8 +29,8 @@ function JobListingBox({ item }) {
             src={item?.employer?.user?.avatar}
             style={{
               objectFit: 'contain',
-              width: 160,
-              height: 130
+              width: 120,
+              height: 90
             }}
           />
         </MuiGrid>

@@ -57,10 +57,10 @@ function ChiTietNhaTuyenDungPage() {
                 <Stack>
                   <Box sx={{ height: 300, position: 'relative' }}>
                     <img
-                      src={employer?.user?.avatar}
+                      src={employer?.user?.cover}
                       loading="lazy"
                       style={{
-                        objectFit: 'contain',
+                        objectFit: 'cover',
                         width: '100%',
                         height: 300
                       }}
@@ -73,15 +73,16 @@ function ChiTietNhaTuyenDungPage() {
                         position: 'absolute',
                         left: 30,
                         bottom: -70,
-                        border: `3px solid #e7e7e7`,
-                        width: 180,
-                        height: 160
+                        borderRadius: 2,
+                        maxWidth: 180,
+                        maxHeight: 160,
+                        border: `2px solid #e7e7e7`
                       }}
                     />
                   </Box>
-                  <Box sx={{ height: 'auto,', ml: 30, my: 1 }}>
+                  <Box sx={{ pl: 28, my: 1 }}>
                     <MuiGrid container>
-                      <MuiGrid item xs={12}>
+                      <MuiGrid item xs>
                         <Box>
                           <Stack spacing={0}>
                             <Typography variant="h6">{employer?.user?.name}</Typography>
