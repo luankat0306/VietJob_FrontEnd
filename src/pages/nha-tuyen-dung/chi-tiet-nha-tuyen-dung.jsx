@@ -73,18 +73,18 @@ function ChiTietNhaTuyenDungPage() {
                         position: 'absolute',
                         left: 30,
                         bottom: -70,
-                        border: `4px solid ${primary[100]}`,
+                        border: `3px solid #e7e7e7`,
                         width: 180,
-                        height: 150
+                        height: 160
                       }}
                     />
                   </Box>
-                  <Box sx={{ height: 'auto,', ml: 30, mt: 1, mb: 3 }}>
+                  <Box sx={{ height: 'auto,', ml: 30, my:1 }}>
                     <MuiGrid container>
                       <MuiGrid item xs={6}>
                         <Box>
                           <Stack spacing={0}>
-                            <Typography variant="h5">{employer?.user?.name}</Typography>
+                            <Typography variant="h6">{employer?.user?.name}</Typography>
                             <Box>
                               <MuiGrid container>
                                 <MuiGrid item xs={6}>
@@ -170,19 +170,11 @@ function ChiTietNhaTuyenDungPage() {
                 <Box sx={{ pl: 1, borderLeft: `5px solid ${secondary['main']}`, mb: 2 }}>
                   <Typography variant="h6">Tuyển Dụng</Typography>
                 </Box>
-                <Stack spacing={2}>
+                <Stack>
                   {jobs?.data?.map((item, index) => (
                     <JobListingBox key={index} item={item} />
                   ))}
-                  {/* <JobListingBox />
-                  <JobListingBox />
-                  <JobListingBox />
-                  <JobListingBox />
-                  <JobListingBox />
-                  <JobListingBox />
-                  <JobListingBox />
-                  <JobListingBox />
-                  <JobListingBox /> */}
+                 
                 </Stack>
                 <Box
                   fullWidth

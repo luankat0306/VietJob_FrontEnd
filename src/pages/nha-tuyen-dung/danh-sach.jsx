@@ -66,7 +66,7 @@ function DanhSachNhaTuyenDungPage() {
                 >
                   <Card
                     sx={{
-                      maxWidth: 400,
+                      maxWidth: 360,
                       border: `4px solid transparent`,
                       transition: 'ease-in-out 0.3s',
                       ':hover': {
@@ -81,7 +81,7 @@ function DanhSachNhaTuyenDungPage() {
                       <Box sx={{ position: 'relative', mb: 5 }}>
                         <CardMedia
                           component="img"
-                          height="200"
+                          height="150"
                           width="100%"
                           image={item?.user?.avatar}
                           sx={{
@@ -89,21 +89,7 @@ function DanhSachNhaTuyenDungPage() {
                           }}
                         />
 
-                        {/* <CardMedia
-                          component="img"
-                          image={item?.user?.avatar}
-                          sx={{
-                            objectFit: 'cover',
-                            width: 130,
-                            height: 100,
-                            border: `4px solid ${primary[100]}`,
-                            borderRadius: 2,
-                            position: 'absolute',
-                            bottom: -50,
-                            left: 30,
-                            zIndex: 1
-                          }}
-                        /> */}
+                     
                       </Box>
                       <CardContent>
                         <Typography
@@ -113,7 +99,6 @@ function DanhSachNhaTuyenDungPage() {
                             overflow: 'hidden',
                             textOverflow: 'ellipsis'
                           }}
-                          gutterBottom
                           variant="h6"
                           component="div"
                         >
