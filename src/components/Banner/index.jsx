@@ -43,16 +43,16 @@ const Banner = () => {
       sx={{ position: 'relative', zIndex: 1, overflow: 'hidden' }}
     >
       <MuiGrid container spacing={1} sx={{ px: 24 }}>
-        <MuiGrid item xs={7} md={5} lg={6} xl={5}>
+        <MuiGrid item xs={6} md={6} lg={6} xl={6}>
           <Stack data-speed="-2" className="layer" direction="column" mt={'30%'}>
             <Typography data-aos="fade-right" variant="h2" fontWeight={700}>
               Tìm việc làm phù hợp với bạn
             </Typography>
             <Box mt={4} />
-            <Typography data-aos="fade-right" variant="p">
+            {/* <Typography data-aos="fade-right" variant="p">
               Lorem ipsum dolor sit amet consetetur sadipscing elitr sed diam nonumy eirmod tempor
               invidunt ut labore et dolore magna aliquyam erat sed diam voluptua.
-            </Typography>
+            </Typography> */}
             <Box mt={4} />
             <Card sx={{ p: 1 }}>
               <Stack direction="row" spacing={1} alignItems="stretch" flexGrow={1}>
@@ -92,7 +92,7 @@ const Banner = () => {
             </Card>
           </Stack>
         </MuiGrid>
-        <MuiGrid item xs={5} md={7} lg={6} xl={7}>
+        <MuiGrid item xs={6} md={6} lg={6} xl={6}>
           <img
             data-speed="-2"
             className="layer"

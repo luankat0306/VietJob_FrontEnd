@@ -1,5 +1,6 @@
 import Banner from '@/components/Banner';
 import { CardJob } from '@/components/CardJob';
+import { useCountJobCareer } from '@/hooks/career';
 import { useJobs } from '@/hooks/job';
 import {
   BusinessCenterRounded,
@@ -33,36 +34,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { primary } from '../../theme/themeColors';
 import { formatNumber } from '../../utils/format';
 function Home() {
-  const mockCategories = [
-    {
-      name: 'Tài chính / Ngân hàng',
-      countJobs: 56231
-    },
-    {
-      name: 'IT phần mềm',
-      countJobs: 42064
-    },
-    {
-      name: 'Kinh doanh / bán hàng',
-      countJobs: 23634
-    },
-    {
-      name: 'Bất động sản',
-      countJobs: 35567
-    },
-    {
-      name: 'Kế toán / Kiểm toán',
-      countJobs: 35567
-    },
-    {
-      name: 'Dịch vụ bán hàng',
-      countJobs: 35567
-    },
-    {
-      name: 'Hành chính / Văn phòng',
-      countJobs: 35567
-    }
-  ];
+  const { data } = useCountJobCareer();
 
   const [controlledSwiper, setControlledSwiper] = useState(null);
   const [controlledSwiper2, setControlledSwiper2] = useState(null);
@@ -118,9 +90,9 @@ function Home() {
                 }}
                 modules={[Autoplay, Controller]}
               >
-                {mockCategories.map((item, index) => {
+                {data?.map((item, index) => {
                   return (
-                    <SwiperSlide key={index}>
+                    <SwiperSlide key={item?.name}>
                       <Card variant="outlined" sx={{ backgroundColor: primary[50] }}>
                         <CardContent>
                           <ListItem disablePadding>
@@ -135,7 +107,7 @@ function Home() {
                                   {item.name}
                                 </Typography>
                               }
-                              secondary={`${formatNumber(item.countJobs)} việc làm`}
+                              secondary={`${formatNumber(item.count)} việc làm`}
                             />
                           </ListItem>
                         </CardContent>
@@ -152,7 +124,7 @@ function Home() {
           <Container fixed>
             <Box>
               <Typography sx={{ textAlign: 'center', mb: 6 }} variant="h3" fontWeight={700}>
-                Tin tuyển dung, việc làm tốt nhất
+                Tin tuyển dụng, việc làm tốt nhất
               </Typography>
 
               <Grid container spacing={2}>

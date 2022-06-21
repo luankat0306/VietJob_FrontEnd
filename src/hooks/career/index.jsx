@@ -13,6 +13,10 @@ export const useCareer = (id) => {
   });
 };
 
+export const useCountJobCareer = (id) => {
+  return useQuery([key, id], careerApi.getCountJob);
+};
+
 export const useMutationCreateCareer = () => {
   return useMutation(careerApi.createCareer);
 };

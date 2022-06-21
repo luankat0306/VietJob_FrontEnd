@@ -8,6 +8,9 @@ const careerApi = {
   getCareerById: async ({ queryKey }) => {
     return await axiosClient.get(`${endPoint}/${queryKey[1]}`);
   },
+  getCountJob: async () => {
+    return await axiosClient.get(`${endPoint}/countJob`);
+  },
   createCareer: async (career) => {
     return await axiosClient.career(endPoint, career);
   },

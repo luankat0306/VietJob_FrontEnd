@@ -177,7 +177,7 @@ const ChiTietViecLamPage = () => {
             <CardContent sx={{ backgroundColor: '#f3f6f9' }}>
               <Grid container spacing={2}>
                 {jobs?.data?.map((job, index) => (
-                  <Grid key={index} item xs={12} md={6}>
+                  <Grid key={index} item xs={12} md={12}>
                     <CardJob
                       item={{
                         id: job._id,
