@@ -1,3 +1,4 @@
+import { useSnackbar } from 'notistack';
 import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +11,8 @@ const useAuth = () => {
   const { mutate: mutateLogout, error: errorLogout } = useMutation(authApi.logout);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+
   const login = async ({ email, password, role }) => {
     mutateLogin(
       { email, password },
@@ -32,6 +35,9 @@ const useAuth = () => {
       { email, password, role: role ? 1 : 0 },
       {
         onSuccess: (data) => {
+          enqueueSnackbar('Đăng ký thành công', {
+            variant: 'success'
+          });
           navigate('/dang-nhap');
         },
         onError: (error) => {
