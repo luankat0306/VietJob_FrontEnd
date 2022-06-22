@@ -176,9 +176,9 @@ const Header = (props) => {
             >
               Đăng ký
             </Button>
-            <Button size="large" color="secondary" variant="contained">
+            {/* <Button size="large" color="secondary" variant="contained">
               Đăng tuyển & tìm hồ sơ
-            </Button>
+            </Button> */}
           </Stack>
         )}
       </Toolbar>
